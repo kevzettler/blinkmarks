@@ -1,28 +1,29 @@
 var blinkmarks = function(){
 	
-	//If there no jquery on the page load the latest
+	console.log("blinkmarks()");
+	
+	//If there is no jquery on the page load the latest
 	if(typeof jQuery == 'undefined'){
 		var s=document.createElement('script');
 		s.setAttribute('type', "text/javascript");
 		s.setAttribute('src','http://jquery.com/src/jquery-latest.js');
 		document.getElementsByTagName('body')[0].appendChild(s);
 		s.onload = buildBar;
-		s.onreadystatechange= function () {
+		s.onreadystatechange = function () {
 			if (this.readyState == 'complete' || this.readyState == 'loaded'){
+				console.log("jquery ready?", blinkmarks);
 				buildBar();
 			}
-		}
- 	}else{
+		};
+	}else{
+		console.log("jquery ready?", blinkmarks);
 		buildBar();
 	}
 		
 		
-	function buildBar(){
-		
-		//alert($('div#blinkmarks').length);
-		
-		//if($('div#blinkmarks').length > 0){ return false;}
-		
+	function buildBar(){			
+		if(jQuery('div#blinkmarks').length > 0){ return false;}
+
 		jQuery.noConflict();
 		jQuery(document).ready(function($){
 			var $barDiv = $('<div id="blinkmarks"></div>');
@@ -39,29 +40,30 @@ var blinkmarks = function(){
 				'z-index': "9001",
 				'background-color': '#FF8F82'
 			});
-			
-			var $barIframe = $('<iframe/>');
-			$barIframe.attr('src', "http://0.0.0.0:3000/bar");
-			$barIframe.attr('width', "100%");
-			$barIframe.attr('height', "30px");
-			$barIframe.attr("scrolling", "no");
-			$barIframe.attr("frameborder", "0");
+	
+			var $barIframe = $('<iframe/>', {
+			'src': "http://0.0.0.0:3000/bar",
+			'width': "100%",
+			'height': "30px",
+			"scrolling": "no",
+			"frameborder": "0"
+			});
 			$barIframe.css({
 				width: '90%',
 				height: '100%',
 				border: 'none',
 				float: 'left'
 			});
-			
+	
 			var $closeBtn = $('<a href="#">Close X</a>');
 			$closeBtn.css({float: 'right'});
 			$closeBtn.click(function(){
 				$barDiv.slideUp('fast', function(){
 					$barDiv.remove();
-				})
+				});
 				return false;
 			});
-			
+	
 			$barDiv.prepend($barIframe);
 			$barDiv.append($closeBtn);
 			$('body').prepend($barDiv);
@@ -69,4 +71,7 @@ var blinkmarks = function(){
 		});
 	}
 	
+	return{ buildBar : buildBar };
 }();
+
+console.log("end of blinkmarks script", blinkmarks);
