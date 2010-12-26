@@ -1,4 +1,4 @@
-var QWKMRKS = function(){
+var blinkmarks = function(){
 	
 	//If there no jquery on the page load the latest
 	if(typeof jQuery == 'undefined'){
@@ -18,9 +18,14 @@ var QWKMRKS = function(){
 		
 		
 	function buildBar(){
+		
+		//alert($('div#blinkmarks').length);
+		
+		//if($('div#blinkmarks').length > 0){ return false;}
+		
 		jQuery.noConflict();
 		jQuery(document).ready(function($){
-			var $barDiv = $('<div></div>');
+			var $barDiv = $('<div id="blinkmarks"></div>');
 			$barDiv.css({
 				width: '100%',
 				height: '30px',
@@ -36,9 +41,11 @@ var QWKMRKS = function(){
 			});
 			
 			var $barIframe = $('<iframe/>');
-			$barIframe.attr('src', "http://10.0.1.5:8888/bar.html");
+			$barIframe.attr('src', "http://0.0.0.0:3000/bar");
 			$barIframe.attr('width', "100%");
 			$barIframe.attr('height', "30px");
+			$barIframe.attr("scrolling", "no");
+			$barIframe.attr("frameborder", "0");
 			$barIframe.css({
 				width: '90%',
 				height: '100%',

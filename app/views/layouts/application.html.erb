@@ -5,17 +5,20 @@
   <%= stylesheet_link_tag :all %>
   <%= csrf_meta_tag %>
 </head>
-<body>
+<body class="blinkmarkbar">
 
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
+<%= link_to 'BlinkMarks.com', root_path, :class => "logo" %>
 <%= yield %>
 
+<!--
 <% if user_signed_in? %>
   <%= link_to 'Logout', destroy_user_session_path %>
 <% else %>
   <%= link_to 'Login', new_user_session_path %>
 <% end %>
+-->
 
 <%= render :partial => "shared/javascripts" %>
 </body>
