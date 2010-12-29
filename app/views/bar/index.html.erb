@@ -1,2 +1,5 @@
-<a href="view">View bookmarks</a>
-<a href="add">Add to bookmarks</a>
+<% if @blinkmark.nil? %>
+	<a href="/bar/add?title=<%= @blinkmark_title %>&amp;url=<%= @blinkmark_url %>" class="add" >Add to bookmarks</a>
+<% else %>
+	<a href="remove?title=<%= @blinkmark_title %>&amp;url=<%= @blinkmark_url %>" class="remove">Remove from bookmarks</a>
+<% end %>

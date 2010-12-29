@@ -1,26 +1,6 @@
 var blinkmarks = function(){
 	
-	console.log("blinkmarks()");
-	
-	//If there is no jquery on the page load the latest
-	if(typeof jQuery == 'undefined'){
-		var s=document.createElement('script');
-		s.setAttribute('type', "text/javascript");
-		s.setAttribute('src','http://jquery.com/src/jquery-latest.js');
-		document.getElementsByTagName('body')[0].appendChild(s);
-		s.onload = buildBar;
-		s.onreadystatechange = function () {
-			if (this.readyState == 'complete' || this.readyState == 'loaded'){
-				console.log("jquery ready?", blinkmarks);
-				buildBar();
-			}
-		};
-	}else{
-		console.log("jquery ready?", blinkmarks);
-		buildBar();
-	}
-		
-		
+	//Function for building the bar	
 	function buildBar(){			
 		if(jQuery('div#blinkmarks').length > 0){ return false;}
 
@@ -42,12 +22,14 @@ var blinkmarks = function(){
 			});
 	
 			var $barIframe = $('<iframe/>', {
-			'src': "http://0.0.0.0:3000/bar",
+			'src': "http://0.0.0.0:3000/bar?&title="+encodeURIComponent(window.document.title)+"url="+encodeURIComponent(window.location.href),
+			'name': window.location.href+"||"+window.document.title,
 			'width': "100%",
 			'height': "30px",
 			"scrolling": "no",
 			"frameborder": "0"
 			});
+			
 			$barIframe.css({
 				width: '90%',
 				height: '100%',
@@ -70,8 +52,23 @@ var blinkmarks = function(){
 			$barDiv.slideDown('fast');
 		});
 	}
+		
+	//If there is no jquery on the page load the latest
+	if(typeof jQuery == 'undefined'){
+		var s=document.createElement('script');
+		s.setAttribute('type', "text/javascript");
+		s.setAttribute('src','http://jquery.com/src/jquery-latest.js');
+		document.getElementsByTagName('body')[0].appendChild(s);
+		s.onload = buildBar;
+		s.onreadystatechange = function () {
+			if (this.readyState == 'complete' || this.readyState == 'loaded'){
+				buildBar();
+			}
+		};
+	}else{
+		buildBar();
+	}		
 	
+	//public api
 	return{ buildBar : buildBar };
 }();
-
-console.log("end of blinkmarks script", blinkmarks);
