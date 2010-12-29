@@ -14,6 +14,7 @@ var blinkmarks = function(){
 				padding: '0',
 				margin: '0',
 				position: 'fixed',
+				'padding-top': "10px",
 				top: "0px",
 				left: "0px",
 				display: 'none',
@@ -22,12 +23,13 @@ var blinkmarks = function(){
 			});
 	
 			var $barIframe = $('<iframe/>', {
-			'src': "http://0.0.0.0:3000/bar?&title="+encodeURIComponent(window.document.title)+"url="+encodeURIComponent(window.location.href),
+			'src': "http://0.0.0.0:3000/bar?title="+encodeURIComponent(window.document.title)+"&url="+encodeURIComponent(window.location.href),
 			'name': window.location.href+"||"+window.document.title,
 			'width': "100%",
 			'height': "30px",
 			"scrolling": "no",
-			"frameborder": "0"
+			"frameborder": "0",
+			"padding-left": "10px"
 			});
 			
 			$barIframe.css({
@@ -37,8 +39,11 @@ var blinkmarks = function(){
 				float: 'left'
 			});
 	
-			var $closeBtn = $('<a href="#">Close X</a>');
-			$closeBtn.css({float: 'right'});
+			var $closeBtn = $('<a href="#">X</a>');
+			$closeBtn.css({
+				float: 'right',
+				"padding-right": "10px"
+			});
 			$closeBtn.click(function(){
 				$barDiv.slideUp('fast', function(){
 					$barDiv.remove();

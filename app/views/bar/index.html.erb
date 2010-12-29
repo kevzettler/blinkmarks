@@ -2,4 +2,11 @@
 	<a href="/bar/add?title=<%= @blinkmark_title %>&amp;url=<%= @blinkmark_url %>" class="add" >Add to bookmarks</a>
 <% else %>
 	<a href="remove?title=<%= @blinkmark_title %>&amp;url=<%= @blinkmark_url %>" class="remove">Remove from bookmarks</a>
+	<form method="post" action="bar/tags" class="tag_form">
+		<input type="text" class="autobox tags" value="Add Tags" />
+	</form>
 <% end %>
+
+<form method="post" action="/bar/search" class="search_form">
+	<input type="text" class="autobox search" value="Search, tags or title"/>
+</form>
