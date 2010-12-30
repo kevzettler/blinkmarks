@@ -1,8 +1,10 @@
 class Blinkmark
-  include MongoMapper::Document         
+  include MongoMapper::Document
+  plugin Hunt        
   
-  key :url, String
-  key :title, String
+  key :url, String, :required => true
+  key :title, String, :required => true
   key :tags, Array
-  timestamps!
+  
+  searches :url, :title, :tags
 end

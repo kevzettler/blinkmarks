@@ -75,5 +75,21 @@ var blinkmarks = function(){
 	}		
 	
 	//public api
-	return{ buildBar : buildBar };
+	return{ 
+		buildBar : buildBar, 
+		buildList : function(results_array){
+			var $linkList = $("<ul/>");
+			$linkList.css({
+				position: 'absolute',
+				top: '0px',
+				left: '0px',
+				'z-index': "9001"
+			});
+			for(var i=0; i<results_array.length; i++){
+				$linkList.append('<li><a href="'+results_array[i].url+'">"'+results_array[i].title+'"</a></li>');
+			}
+			$('body').append($linkList);
+			
+		}
+	};
 }();

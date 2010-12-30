@@ -3,9 +3,9 @@ class User
   plugin MongoMapper::Devise
   devise :registerable, :database_authenticatable, :recoverable, :trackable, :rememberable 
   
-  key :email, String
-  key :bookmark_ids, Array
-  key :tags, Array
+  key :email, String, :required => true
+  
+  many :blinkmarks
   
   timestamps!
 end

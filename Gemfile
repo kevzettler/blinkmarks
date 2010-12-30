@@ -7,6 +7,10 @@ gem "mongo_mapper",
 	:branch => 'rails3'
 gem "bson_ext"
 
+#search for mongo mapper
+gem "hunt",
+	:git => 'https://github.com/jnunemaker/hunt.git'
+
 gem "devise"
 
 gem "rails3-generators"

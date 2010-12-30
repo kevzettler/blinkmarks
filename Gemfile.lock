@@ -15,6 +15,14 @@ GIT
       activesupport (~> 3.0.0)
       plucky (~> 0.3.6)
 
+GIT
+  remote: https://github.com/jnunemaker/hunt.git
+  revision: b17e586ce235606a0782cf8ddef3affda1fb0caf
+  specs:
+    hunt (0.3)
+      fast-stemmer (~> 1.0)
+      mongo_mapper (~> 0.8.6)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -55,6 +63,7 @@ GEM
       warden (~> 1.0.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    fast-stemmer (1.0.0)
     i18n (0.5.0)
     mail (2.2.12)
       activesupport (>= 2.3.6)
@@ -102,6 +111,7 @@ DEPENDENCIES
   bson_ext
   devise
   devise-mongo_mapper!
+  hunt!
   mongo_mapper!
   rails (= 3.0.3)
   rails3-generators

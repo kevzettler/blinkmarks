@@ -125,6 +125,7 @@ a img {
   -ms-background-clip: padding-box;
   -khtml-background-clip: padding-box;
   background-clip: padding-box;
+  float: left;
 }
 /* line 120, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
 .button, .button:visited {
@@ -161,43 +162,43 @@ a img {
   color: #222222;
 }
 
-/* line 11, ../../sass/bar/_index.sass */
+/* line 12, ../../sass/bar/_index.sass */
 .logo {
   float: left;
 }
 
-/* line 14, ../../sass/bar/_index.sass */
+/* line 15, ../../sass/bar/_index.sass */
 .add, .remove {
   float: left;
   padding: 0 10px 0 10px;
 }
 
-/* line 18, ../../sass/bar/_index.sass */
+/* line 19, ../../sass/bar/_index.sass */
 .alert {
   display: none;
 }
 
-/* line 21, ../../sass/bar/_index.sass */
+/* line 22, ../../sass/bar/_index.sass */
 .notice {
   display: none;
 }
 
-/* line 25, ../../sass/bar/_index.sass */
+/* line 26, ../../sass/bar/_index.sass */
 .tag_form {
   float: left;
 }
 
-/* line 28, ../../sass/bar/_index.sass */
+/* line 29, ../../sass/bar/_index.sass */
 .tags {
   float: left;
 }
 
-/* line 31, ../../sass/bar/_index.sass */
+/* line 32, ../../sass/bar/_index.sass */
 .search_form {
   float: right;
 }
 
-/* line 33, ../../sass/bar/_index.sass */
+/* line 34, ../../sass/bar/_index.sass */
 .search {
   float: right;
 }
