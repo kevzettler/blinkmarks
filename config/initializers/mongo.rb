@@ -1,12 +1,12 @@
 if ENV['MONGOHQ_URL'] 
-    #MongoMapper.config = {RAILS_ENV => {'uri' => ENV['MONGOHQ_URL']}}
-    MongoMapper.connection = Mongo::Connection.new(ENV["MONGOHQ_URL"], nil) 
+    MongoMapper.config = {RAILS_ENV => {'uri' => ENV['MONGOHQ_URL']}}
+    #MongoMapper.connection = Mongo::Connection.new(ENV["MONGOHQ_URL"], nil) 
   else 
-    #MongoMapper.config = {RAILS_ENV => {'uri' => 'mongodb://localhost/sushi'}}
-    MongoMapper.connection = Mongo::Connection.new('localhost', 27017)
+    MongoMapper.config = {RAILS_ENV => {'uri' => 'mongodb://localhost/', 'port' => '27017'}}
+    #MongoMapper.connection = Mongo::Connection.new('localhost', 27017)
   end
 
-
+MongoMapper.connect(RAILS_ENV)
 #MongoMapper.connection = Mongo::Connection.new('localhost', 27017)
 
 MongoMapper.database = "#bookmarks-#{Rails.env}"
