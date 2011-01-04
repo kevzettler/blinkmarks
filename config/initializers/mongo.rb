@@ -1,6 +1,6 @@
 if ENV['MONGOHQ_URL'] 
     #MongoMapper.config = {RAILS_ENV => {'uri' => ENV['MONGOHQ_URL']}}
-    MongoMapper.connection = Mongo::Connection.new(ENV["MONGOHQ_URL"]) 
+    MongoMapper.connection = Mongo::Connection.new(ENV["MONGOHQ_URL"], nil) 
   else 
     #MongoMapper.config = {RAILS_ENV => {'uri' => 'mongodb://localhost/sushi'}}
     MongoMapper.connection = Mongo::Connection.new('localhost', 27017)
