@@ -5,11 +5,6 @@ class BarController < ApplicationController
   def index
     @blinkmark_url = params[:url]
     @blinkmark_title = params[:title]
-    
-    puts "omg current user or wot?__________"
-    
-    puts current_user.inspect
-      
     @blinkmark = current_user.blinkmarks.find_by_url(params[:url])
   end
   
@@ -57,6 +52,10 @@ class BarController < ApplicationController
         format.json {render :json => [], :status => 200}
       end
     end
+  end
+  
+  def external
+    render :action => 'external', :layout => false, :content_type => 'text/javascript'
   end
   
   

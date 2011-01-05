@@ -4,6 +4,9 @@ Bookmarks::Application.routes.draw do
 
   root :to => "application#index"
   
+  match 'bar' => 'bar#index', :as => :bar
+  match 'bar/external' => 'bar#external', :as => :bar_external
+  
   #match "bar" => 'bar#index'
   
   # The priority is based upon order of creation:
