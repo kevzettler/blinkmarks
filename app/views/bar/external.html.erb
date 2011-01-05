@@ -1,12 +1,28 @@
 var blinkmarks = function(){
 	
+	var REMOTE = "<%= bar_url %>"
+		,head = document.getElementsByTagName('head')[0]
+		,deps = 0
+		,finished_deps = 0
+		;
+	
 	//Function for building the bar	
-	function buildBar(){			
-		if(jQuery('div#blinkmarks').length > 0){ return false;}
-
+	function buildBar(){
+		
+		//remove the bar if its already rendered		
+		if(jQuery('div#blinkmarks').length > 0){ 
+			jQuery('div#blinkmarks')[0].slideUp('fast', function(){
+				$(this).remove();
+			});
+			return false;
+		}
+		
 		jQuery.noConflict();
 		jQuery(document).ready(function($){
-			var $barDiv = $('<div id="blinkmarks"></div>');
+			var $barDiv = $('<div id="blinkmarks"></div>')
+				,$closeBtn = $('<a href="#">X</a>')
+				;	
+				
 			$barDiv.css({
 				width: '100%',
 				height: '30px',
@@ -21,9 +37,16 @@ var blinkmarks = function(){
 				'z-index': "9001",
 				'background-color': '#FF8F82'
 			});
-	
+			
+			/*
+			*TODO
+			*
+			* This iframe constuctor is using the newer jquery 1.4 attribute param construction
+			* which will not be availble in sites using older versions of jquery
+			* I belive this is happening on reddit
+			*/
 			var $barIframe = $('<iframe/>', {
-			'src': "<%= bar_url %>/?title="+encodeURIComponent(window.document.title)+"&url="+encodeURIComponent(window.location.href),
+			'src': REMOTE+"/?title="+encodeURIComponent(window.document.title)+"&url="+encodeURIComponent(window.location.href),
 			'name': window.location.href+"||"+window.document.title,
 			'width': "100%",
 			'height': "30px",
@@ -39,7 +62,6 @@ var blinkmarks = function(){
 				float: 'left'
 			});
 	
-			var $closeBtn = $('<a href="#">X</a>');
 			$closeBtn.css({
 				float: 'right',
 				"padding-right": "10px"
@@ -57,23 +79,67 @@ var blinkmarks = function(){
 			$barDiv.slideDown('fast');
 		});
 	}
+	
+	
+	/*
+	*
+	* Lets load 3rd party dependencys form external domains!
+	*
+	*/	
+	
+	function scriptOnLoad(){
+		if(typeof jQuery == "undefined" || !jQuery ||
+		   typeof easyXDM == "undefined" || !easyXDM ||
+		   typeof JSON == "undefined" || !JSON){
+			return;
+		}
 		
+		buildBar();
+	}
+	
 	//If there is no jquery on the page load the latest
-	if(typeof jQuery == 'undefined'){
+	if(typeof jQuery == 'undefined' || !jQuery){
 		var s=document.createElement('script');
 		s.setAttribute('type', "text/javascript");
 		s.setAttribute('src','http://jquery.com/src/jquery-latest.js');
-		document.getElementsByTagName('body')[0].appendChild(s);
+		head.appendChild(s);
 		s.onload = buildBar;
 		s.onreadystatechange = function () {
 			if (this.readyState == 'complete' || this.readyState == 'loaded'){
 				buildBar();
 			}
 		};
-	}else{
-		buildBar();
-	}		
+	}
 	
+	//We need easyXDM to reach out of our frame 
+	if(typeof easyXDM === "undefined" || !easyXDM){
+		s1 = document.createElement("script");
+	    s1.type = "text/javascript";
+	    s1.src = REMOTE + "/javascripts/easyXDM-2.4.8.102/easyXDM.debug.js";
+		s1.onload = scriptOnLoad;
+	    s1.onreadystatechange = function(){
+	        if (this.readyState === "complete" || this.readyState === "loaded") {
+	            scriptOnLoad();
+	        }
+	    };
+	    head.appendChild(s1);
+	}
+	
+	//I think easyXDM needs JSON
+	if (typeof JSON === "undefined" || !JSON) {
+        s2 = document.createElement("script");
+        s2.type = "text/javascript";
+        s2.src = REMOTE + "/javascripts/easyXDM-2.4.8.102/json2.js";
+		s2.onload = scriptOnLoad;
+        s2.onreadystatechange = function(){
+            if (this.readyState === "complete" || this.readyState === "loaded") {
+                scriptOnLoad();
+            }
+        };
+        head.appendChild(s2);
+    }
+	
+			
 	//public api
 	return{ 
 		buildBar : buildBar, 
