@@ -1,6 +1,6 @@
 var blinkmarks = function(){
 	
-	var REMOTE = "<%= bar_url %>"
+	var REMOTE = "<%= root_url %>"
 		,head = document.getElementsByTagName('head')[0]
 		,deps = 0
 		,finished_deps = 0
@@ -45,15 +45,15 @@ var blinkmarks = function(){
 			* which will not be availble in sites using older versions of jquery
 			* I belive this is happening on reddit
 			*/
-			var $barIframe = $('<iframe/>', {
-			'src': REMOTE+"/?title="+encodeURIComponent(window.document.title)+"&url="+encodeURIComponent(window.location.href),
-			'name': window.location.href+"||"+window.document.title,
-			'width': "100%",
-			'height': "30px",
-			"scrolling": "no",
-			"frameborder": "0",
-			"padding-left": "10px"
-			});
+			var $barIframe = $('<iframe/>'); 
+			
+			$barIframe.attr('src', REMOTE+"bar/?title="+encodeURIComponent(window.document.title)+"&url="+encodeURIComponent(window.location.href));
+			$barIframe.attr('name', window.location.href+"||"+window.document.title);
+			$barIframe.attr('width', "100%");
+			$barIframe.attr('height', "30px");
+			$barIframe.attr("scrolling", "no");
+			$barIframe.attr("frameborder", "0");
+			$barIframe.attr("padding-left", "10px");
 			
 			$barIframe.css({
 				width: '90%',
@@ -76,6 +76,39 @@ var blinkmarks = function(){
 			$barDiv.prepend($barIframe);
 			$barDiv.append($closeBtn);
 			$('body').prepend($barDiv);
+			
+			var rpc = new easyXDM.Rpc({
+			    remote: REMOTE // the path to the provider
+			}, 
+			{
+			    local: {
+			        buildBar: function(successFn, errorFn){
+			        },
+			
+							buildList : function(results_array, successFn, errorFn){
+								var $linkList = $("<ul/>");
+								$linkList.css({
+									position: 'absolute',
+									top: '0px',
+									left: '0px',
+									'z-index': "9001"
+								});
+								for(var i=0; i<results_array.length; i++){
+									$linkList.append('<li><a href="'+results_array[i].url+'">"'+results_array[i].title+'"</a></li>');
+								}
+								$('body').append($linkList);
+
+							}
+			    },
+			    remote: {
+			        buildBar:{
+			            // here we tell the Rpc object to stub a method helloWorld for us
+			        },
+							buildList:{}
+			    }
+			});
+			
+			
 			$barDiv.slideDown('fast');
 		});
 	}
@@ -115,7 +148,7 @@ var blinkmarks = function(){
 	if(typeof easyXDM === "undefined" || !easyXDM){
 		s1 = document.createElement("script");
 	    s1.type = "text/javascript";
-	    s1.src = REMOTE + "/javascripts/easyXDM-2.4.8.102/easyXDM.debug.js";
+	    s1.src = REMOTE + "javascripts/easyXDM-2.4.9.102/easyXDM.debug.js";
 		s1.onload = scriptOnLoad;
 	    s1.onreadystatechange = function(){
 	        if (this.readyState === "complete" || this.readyState === "loaded") {
@@ -129,7 +162,7 @@ var blinkmarks = function(){
 	if (typeof JSON === "undefined" || !JSON) {
         s2 = document.createElement("script");
         s2.type = "text/javascript";
-        s2.src = REMOTE + "/javascripts/easyXDM-2.4.8.102/json2.js";
+        s2.src = REMOTE + "javascripts/easyXDM-2.4.9.102/json2.js";
 		s2.onload = scriptOnLoad;
         s2.onreadystatechange = function(){
             if (this.readyState === "complete" || this.readyState === "loaded") {
@@ -142,20 +175,6 @@ var blinkmarks = function(){
 			
 	//public api
 	return{ 
-		buildBar : buildBar, 
-		buildList : function(results_array){
-			var $linkList = $("<ul/>");
-			$linkList.css({
-				position: 'absolute',
-				top: '0px',
-				left: '0px',
-				'z-index': "9001"
-			});
-			for(var i=0; i<results_array.length; i++){
-				$linkList.append('<li><a href="'+results_array[i].url+'">"'+results_array[i].title+'"</a></li>');
-			}
-			$('body').append($linkList);
-			
-		}
+		buildBar : buildBar
 	};
 }();

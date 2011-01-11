@@ -62,7 +62,7 @@ var blinkmarks = function(){
 	if(typeof jQuery == 'undefined'){
 		var s=document.createElement('script');
 		s.setAttribute('type', "text/javascript");
-		s.setAttribute('src','http://jquery.com/src/jquery-latest.js');
+		s.setAttribute('src','http://jquery.com/src/jquery-latest.min.js');
 		document.getElementsByTagName('body')[0].appendChild(s);
 		s.onload = buildBar;
 		s.onreadystatechange = function () {
