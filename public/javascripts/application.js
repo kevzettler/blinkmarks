@@ -58,7 +58,7 @@ $(document).ready(function(){
 				query: $this.val()
 			},
 			success: function(data){
-				console.log("building the list", data, blinkmarks);
+				console.log(window, window.parent, window.parent.socket);
 				blinkmarks.buildList(data);
 			},
 			error: function(){

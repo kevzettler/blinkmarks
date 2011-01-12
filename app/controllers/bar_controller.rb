@@ -1,6 +1,7 @@
 class BarController < ApplicationController
-  before_filter :authenticate_user!, :except => [:external]
+  before_filter :authenticate_user!, :except => [:external, :frame]
   
+  layout "bar"
   
   def index
     @blinkmark_url = params[:url]
@@ -58,5 +59,8 @@ class BarController < ApplicationController
     render :action => 'external', :layout => false, :content_type => 'text/javascript'
   end
   
+  def frame
+    render :action => 'frame', :layout => 'frame'
+  end
   
 end

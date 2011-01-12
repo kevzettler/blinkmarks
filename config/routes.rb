@@ -6,6 +6,7 @@ Bookmarks::Application.routes.draw do
   
   match 'bar' => 'bar#index', :as => :bar
   match 'bar/external' => 'bar#external', :as => :bar_external
+  match 'frame' => 'bar#frame', :as => :frame
   
   #match "bar" => 'bar#index'
   

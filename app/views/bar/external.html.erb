@@ -1,3 +1,4 @@
+var socket = {};
 var blinkmarks = function(){
 	
 	var REMOTE = "<%= root_url %>"
@@ -8,7 +9,7 @@ var blinkmarks = function(){
 	
 	//Function for building the bar	
 	function buildBar(){
-		
+				
 		//remove the bar if its already rendered		
 		if(jQuery('div#blinkmarks').length > 0){ 
 			jQuery('div#blinkmarks')[0].slideUp('fast', function(){
@@ -18,7 +19,7 @@ var blinkmarks = function(){
 		}
 		
 		jQuery.noConflict();
-		jQuery(document).ready(function($){
+		jQuery(function($){
 			var $barDiv = $('<div id="blinkmarks"></div>')
 				,$closeBtn = $('<a href="#">X</a>')
 				;	
@@ -38,29 +39,6 @@ var blinkmarks = function(){
 				'background-color': '#FF8F82'
 			});
 			
-			/*
-			*TODO
-			*
-			* This iframe constuctor is using the newer jquery 1.4 attribute param construction
-			* which will not be availble in sites using older versions of jquery
-			* I belive this is happening on reddit
-			*/
-			var $barIframe = $('<iframe/>'); 
-			
-			$barIframe.attr('src', REMOTE+"bar/?title="+encodeURIComponent(window.document.title)+"&url="+encodeURIComponent(window.location.href));
-			$barIframe.attr('name', window.location.href+"||"+window.document.title);
-			$barIframe.attr('width', "100%");
-			$barIframe.attr('height', "30px");
-			$barIframe.attr("scrolling", "no");
-			$barIframe.attr("frameborder", "0");
-			$barIframe.attr("padding-left", "10px");
-			
-			$barIframe.css({
-				width: '90%',
-				height: '100%',
-				border: 'none',
-				float: 'left'
-			});
 	
 			$closeBtn.css({
 				float: 'right',
@@ -72,19 +50,18 @@ var blinkmarks = function(){
 				});
 				return false;
 			});
-	
-			$barDiv.prepend($barIframe);
+			
+			//add a small style sheet to the host head. because easyxdm won't let us set the styles of the iframe it generates
+			$(head).append("<style type=\"text/css\">#easyXDM_default0_provider{ float: left;}</style>");
 			$barDiv.append($closeBtn);
 			$('body').prepend($barDiv);
 			
+			/*
 			var rpc = new easyXDM.Rpc({
 			    remote: REMOTE // the path to the provider
 			}, 
 			{
 			    local: {
-			        buildBar: function(successFn, errorFn){
-			        },
-			
 							buildList : function(results_array, successFn, errorFn){
 								var $linkList = $("<ul/>");
 								$linkList.css({
@@ -101,10 +78,51 @@ var blinkmarks = function(){
 							}
 			    },
 			    remote: {
-			        buildBar:{
-			            // here we tell the Rpc object to stub a method helloWorld for us
-			        },
 							buildList:{}
+			    }
+			});
+			*/
+			
+			/*
+			*TODO
+			*
+			* This iframe constuctor is using the newer jquery 1.4 attribute param construction
+			* which will not be availble in sites using older versions of jquery
+			* I belive this is happening on reddit
+			*/
+			/*
+			var $barIframe = $('<iframe/>'); 
+			
+			$barIframe.attr('src', REMOTE+"bar/?title="+encodeURIComponent(window.document.title)+"&url="+encodeURIComponent(window.location.href));
+			$barIframe.attr('name', window.location.href+"||"+window.document.title);
+			$barIframe.attr('width', "100%");
+			$barIframe.attr('height', "30px");
+			$barIframe.attr("scrolling", "no");
+			$barIframe.attr("frameborder", "0");
+			$barIframe.attr("padding-left", "10px");
+			*/
+			
+			socket = new easyXDM.Socket({
+			    remote: REMOTE+"/frame",
+					container: $barDiv.get(0),
+					props : {
+						name : window.location.href+"||"+window.document.title,
+						width : '90%',
+						height : '30px',
+						scrolling : 'no',
+						class : "easyxdm",
+						frameborder : '0',
+						style: {
+							float: "left",
+							width: "90%",
+							"padding-left" : "10px",
+						}
+					},
+			    onMessage: function(message, origin){
+			        alert("Received '" + message + "' from '" + origin + "'");
+			    },
+			    onReady: function() {
+			        socket.postMessage("Yay, it works!");
 			    }
 			});
 			
@@ -126,8 +144,7 @@ var blinkmarks = function(){
 		   typeof JSON == "undefined" || !JSON){
 			return;
 		}
-		
-		buildBar();
+			buildBar();
 	}
 	
 	//If there is no jquery on the page load the latest
@@ -139,7 +156,7 @@ var blinkmarks = function(){
 		s.onload = buildBar;
 		s.onreadystatechange = function () {
 			if (this.readyState == 'complete' || this.readyState == 'loaded'){
-				buildBar();
+				scriptOnLoad();
 			}
 		};
 	}
