@@ -60,7 +60,7 @@ class BarController < ApplicationController
   end
   
   def frame
-    render :action => 'frame', :layout => 'frame'
+    render :action => 'frame', :layout => false
   end
   
 end

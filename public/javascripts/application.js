@@ -58,8 +58,7 @@ $(document).ready(function(){
 				query: $this.val()
 			},
 			success: function(data){
-				console.log(window, window.parent, window.parent.socket);
-				blinkmarks.buildList(data);
+				window.parent.rpc.buildList(data);
 			},
 			error: function(){
 				console.log("key up broke");
