@@ -4,6 +4,7 @@ class BarController < ApplicationController
   layout "bar"
   
   def index
+    puts params.inspect
     @blinkmark_url = params[:url]
     @blinkmark_title = params[:title]
     @blinkmark = current_user.blinkmarks.find_by_url(params[:url])
@@ -19,7 +20,7 @@ class BarController < ApplicationController
     respond_to do |format|
       if current_user.save
        format.html{redirect_to "/bar?url=" + URI.escape(params[:url]) +"&title=" + URI.escape(params[:title])}
-       format.json{render :json => current_user, :status => :created}
+       format.json{render :json => current_user.blinkmarks, :status => :created}
       else
        format.json{render :json => current_user.errors, :status => :unprocessable_entity}
       end
@@ -60,6 +61,8 @@ class BarController < ApplicationController
   end
   
   def frame
+    @pass_url = params[:url]
+    @pass_title = params[:title]
     render :action => 'frame', :layout => false
   end
   

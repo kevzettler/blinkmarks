@@ -13,8 +13,6 @@ var blinkmarks = function(){
 		
 		var $existing_bar = jQuery('div#blinkmarks');
 				
-				
-		console.log("checking state of the bar");		
 		//remove the bar if its already rendered		
 		if($existing_bar.length > 0 && $existing_bar.is(":visible")){ 
 			$existing_bar.slideUp('fast');
@@ -66,7 +64,7 @@ var blinkmarks = function(){
 			
 			
 				rpc = new easyXDM.Rpc({
-				    remote: REMOTE+"/frame", // the path to the provider
+				    remote: REMOTE+"/frame?url="+window.location.href+"&title="+window.document.title, // the path to the provider
 						container: $barDiv.get(0),
 						props : {
 							name : window.location.href+"||"+window.document.title,
@@ -85,21 +83,24 @@ var blinkmarks = function(){
 				{
 				    local: {
 								buildList : function(results_array, successFn, errorFn){
-									var $linkList = $("<ul id='blinkmarks_search_list'/>");
+									var $linkList = $("#blinkmarks_search_list");
+									
+									if($linkList.length === 0){
+										$linkList = $("<ul id='#blinkmarks_search_list'").prependTo('body');
+									}
+									
 									$linkList.css({
 										position: 'static',
 										top: '30px',
 										right: '0px',
-										'z-index': "9001"
+										'z-index': "9001",
+										background : '#000'
 									});
+									
+									$linkList.empty();
+									
 									for(var i=0; i<results_array.length; i++){
 										$linkList.append('<li><a href="'+results_array[i].url+'">"'+results_array[i].title+'"</a></li>');
-									}
-									
-									if($("#blinkmarks_serach_list").length <= 0){
-										$('body').prepend($linkList);
-									}else{
-									
 									}
 								}
 				    }
