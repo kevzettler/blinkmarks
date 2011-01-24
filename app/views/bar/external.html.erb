@@ -1,4 +1,3 @@
-var socket = {};
 var blinkmarks = function(){
 	
 	var REMOTE = "<%= root_url %>"
@@ -6,23 +5,29 @@ var blinkmarks = function(){
 		,deps = 0
 		,finished_deps = 0
 		,bar_built = false
+		,rpc = null
 		;
 	
 	//Function for building the bar	
 	function buildBar(){
+		
+		var $existing_bar = jQuery('div#blinkmarks');
 				
+				
+		console.log("checking state of the bar");		
 		//remove the bar if its already rendered		
-		if(jQuery('div#blinkmarks').length > 0){ 
-			jQuery('div#blinkmarks')[0].slideUp('fast', function(){
-				$(this).remove();
-				bar_built = false;
-			});
+		if($existing_bar.length > 0 && $existing_bar.is(":visible")){ 
+			$existing_bar.slideUp('fast');
+			return false;
+		}else if($existing_bar.length > 0 && $existing_bar.is(":not(:visible)")){
+			$existing_bar.slideDown('fast');
 			return false;
 		}
 		
 		jQuery.noConflict();
-		jQuery(function($){ 
+		(function($){ 
 			if(bar_built === false){
+				console.log("dom ready building bar");
 				var $barDiv = $('<div id="blinkmarks"></div>')
 					,$closeBtn = $('<a href="#">X</a>')
 					;	
@@ -30,6 +35,9 @@ var blinkmarks = function(){
 				$barDiv.css({
 					width: '100%',
 					height: '30px',
+					'background-color': 'transparent',
+					'background-image': "url("+REMOTE+"images/bar_back.png)",
+					'background-repeat': 'repeat-x',
 					border: 'none',
 					padding: '0',
 					margin: '0',
@@ -39,7 +47,6 @@ var blinkmarks = function(){
 					left: "0px",
 					display: 'none',
 					'z-index': "9001",
-					'background-color': '#FFF'
 				});
 			
 	
@@ -48,9 +55,7 @@ var blinkmarks = function(){
 					"padding-right": "10px"
 				});
 				$closeBtn.click(function(){
-					$barDiv.slideUp('fast', function(){
-						$barDiv.remove();
-					});
+					$barDiv.slideUp('fast');
 					return false;
 				});
 			
@@ -60,7 +65,7 @@ var blinkmarks = function(){
 				$('body').prepend($barDiv);
 			
 			
-				var rpc = new easyXDM.Rpc({
+				rpc = new easyXDM.Rpc({
 				    remote: REMOTE+"/frame", // the path to the provider
 						container: $barDiv.get(0),
 						props : {
@@ -102,7 +107,7 @@ var blinkmarks = function(){
 						
 				$barDiv.slideDown('fast', function(){ bar_built = true;});
 			}
-		});
+		})(jQuery.noConflict());
 	}
 	
 	
@@ -111,7 +116,6 @@ var blinkmarks = function(){
 	* Lets load 3rd party dependencys form external domains!
 	*
 	*/	
-	
 	function scriptOnLoad(){
 		if(typeof jQuery == "undefined" || !jQuery ||
 		   typeof easyXDM == "undefined" || !easyXDM ||
@@ -130,6 +134,7 @@ var blinkmarks = function(){
 		s.onload = buildBar;
 		s.onreadystatechange = function () {
 			if (this.readyState == 'complete' || this.readyState == 'loaded'){
+				console.log('Jquery Loaded');
 				scriptOnLoad();
 			}
 		};
@@ -165,7 +170,14 @@ var blinkmarks = function(){
 	
 			
 	//public api
-	return $.extend(rpc, { 
-		buildBar : buildBar
-	});
+	//return a function that acts as a future because we may still be waiting for asyc dependencies to load
+	return (function(){ 
+		if(typeof jQuery != 'undefined'){
+			return jQuery.extend(rpc, { 
+				buildBar : buildBar
+			});
+		}else{
+			return {buildBar : buildBar}
+		}
+	})();
 }();
