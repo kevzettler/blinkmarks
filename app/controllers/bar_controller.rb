@@ -14,7 +14,6 @@ class BarController < ApplicationController
     current_user.blinkmarks << Blinkmark.new({
       :url => params[:url],
       :title => params[:title]
-      #:tags => params[:tags]
     })
     
     respond_to do |format|
@@ -27,6 +26,19 @@ class BarController < ApplicationController
     end
   end
   
+  
+  def tag
+    tags = params[:tags].split(" ")
+    blinkmark = current_user.find('')
+    blinkmark.tags = tags
+    
+    if current_user.save
+        format.html{redirect_to "/bar?url=" + URI.escape(params[:url]) +"&title=" + URI.escape(params[:title])}
+        format.json{render :json => current_user.blinkmarks, :status => :created}
+      else
+       format.json{render :json => current_user.errors, :status => :unprocessable_entity}
+    end
+  end
   
   def remove
     @blinkmark =  current_user.blinkmarks.find_by_url(params[:url])

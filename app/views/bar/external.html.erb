@@ -83,18 +83,24 @@ var blinkmarks = function(){
 				{
 				    local: {
 								buildList : function(results_array, successFn, errorFn){
-									var $linkList = $("#blinkmarks_search_list");
+									console.log("rpc build list called", results_array);
 									
-									if($linkList.length === 0){
-										$linkList = $("<ul id='#blinkmarks_search_list'").prependTo('body');
+									var $linkList = $("#blinkmarks_search_list");
+																		
+									if($linkList.length == 0){
+										console.log("building new link list");
+										$linkList = $("<ul id='blinkmarks_search_list'></ul>").prependTo('body');
 									}
+
+									console.log("link list?", $linkList);
 									
 									$linkList.css({
-										position: 'static',
+										position: 'fixed',
 										top: '30px',
 										right: '0px',
-										'z-index': "9001",
-										background : '#000'
+										'z-index': "9005",
+										background : '#FFF',
+										"list-style-type" : 'none',
 									});
 									
 									$linkList.empty();
