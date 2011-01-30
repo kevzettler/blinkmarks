@@ -25,7 +25,6 @@ var blinkmarks = function(){
 		jQuery.noConflict();
 		(function($){ 
 			if(bar_built === false){
-				console.log("dom ready building bar");
 				var $barDiv = $('<div id="blinkmarks"></div>')
 					,$closeBtn = $('<a href="#">X</a>')
 					;	
@@ -44,7 +43,7 @@ var blinkmarks = function(){
 					top: "0px",
 					left: "0px",
 					display: 'none',
-					'z-index': "9001",
+					'z-index': "999999",
 				});
 			
 	
@@ -64,7 +63,7 @@ var blinkmarks = function(){
 			
 			
 				rpc = new easyXDM.Rpc({
-				    remote: REMOTE+"/frame?url="+window.location.href+"&title="+window.document.title, // the path to the provider
+				    remote: REMOTE+"/frame?url="+encodeURIComponent(window.location.href)+"&title="+encodeURIComponent(window.document.title), // the path to the provider
 						container: $barDiv.get(0),
 						props : {
 							name : window.location.href+"||"+window.document.title,
@@ -82,31 +81,32 @@ var blinkmarks = function(){
 				}, 
 				{
 				    local: {
-								buildList : function(results_array, successFn, errorFn){
-									console.log("rpc build list called", results_array);
-									
+								buildList : function(results_array, successFn, errorFn){									
 									var $linkList = $("#blinkmarks_search_list");
 																		
 									if($linkList.length == 0){
 										console.log("building new link list");
 										$linkList = $("<ul id='blinkmarks_search_list'></ul>").prependTo('body');
+										
+										$linkList.css({
+											position: 'fixed',
+											top: '30px',
+											right: '0px',
+											'z-index': "99999999",
+											background : '#FFF',
+											"list-style-type" : 'none',
+											"padding": "9px"
+										});
 									}
-
-									console.log("link list?", $linkList);
-									
-									$linkList.css({
-										position: 'fixed',
-										top: '30px',
-										right: '0px',
-										'z-index': "9005",
-										background : '#FFF',
-										"list-style-type" : 'none',
-									});
-									
+																		
 									$linkList.empty();
 									
-									for(var i=0; i<results_array.length; i++){
-										$linkList.append('<li><a href="'+results_array[i].url+'">"'+results_array[i].title+'"</a></li>');
+									if(results_array.length = 0){
+										$linkList.hide();
+									}else{
+										for(var i=0; i<results_array.length; i++){
+											$linkList.append('<li><a href="'+results_array[i].url+'">"'+results_array[i].title+'"</a></li>');
+										}
 									}
 								}
 				    }
