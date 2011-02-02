@@ -10,7 +10,7 @@ var blinkmarks = function(){
 	
 	//Function for building the bar	
 	function buildBar(){
-		
+		console.log('building bar');
 		var $existing_bar = jQuery('div#blinkmarks');
 				
 		//remove the bar if its already rendered		
@@ -22,114 +22,138 @@ var blinkmarks = function(){
 			return false;
 		}
 		
-		jQuery.noConflict();
-		(function($){ 
-			if(bar_built === false){
-				var $barDiv = $('<div id="blinkmarks"></div>')
-					,$closeBtn = $('<a href="#">X</a>')
-					;	
-				
-				$barDiv.css({
-					width: '100%',
-					height: '30px',
-					'background-color': 'transparent',
-					'background-image': "url("+REMOTE+"images/bar_back.png)",
-					'background-repeat': 'repeat-x',
-					border: 'none',
-					padding: '0',
-					margin: '0',
-					position: 'fixed',
-					'padding': "5px 0",
-					top: "0px",
-					left: "0px",
-					display: 'none',
-					'z-index': "999999",
-				});
+		var $ = jQuery.noConflict();
+		if(bar_built === false){
+			var $barDiv = $('<div id="blinkmarks"></div>')
+				,$closeBtn = $('<a href="#">X</a>')
+				;	
 			
-	
-				$closeBtn.css({
-					float: 'right',
-					"padding-right": "10px"
-				});
-				$closeBtn.click(function(){
-					$barDiv.slideUp('fast');
-					return false;
-				});
-			
-				//add a small style sheet to the host head. because easyxdm won't let us set the styles of the iframe it generates
-				$(head).append("<style type=\"text/css\">#easyXDM_default0_provider{ float: left;}</style>");
-				$barDiv.append($closeBtn);
-				$('body').prepend($barDiv);
-			
-			
-				rpc = new easyXDM.Rpc({
-				    remote: REMOTE+"/frame?url="+encodeURIComponent(window.location.href)+"&title="+encodeURIComponent(window.document.title), // the path to the provider
-						container: $barDiv.get(0),
-						props : {
-							name : window.location.href+"||"+window.document.title,
-							width : '90%',
-							height : '30px',
-							scrolling : 'no',
-							class : "easyxdm",
-							frameborder : '0',
-							style: {
-								float: "left",
-								width: "90%",
-								"padding-left" : "10px",
+			$barDiv.css({
+				width: '100%',
+				height: '30px',
+				'background-color': 'transparent',
+				'background-image': "url("+REMOTE+"images/bar_back.png)",
+				'background-repeat': 'repeat-x',
+				border: 'none',
+				padding: '0',
+				margin: '0',
+				position: 'fixed',
+				'padding': "5px 0",
+				top: "0px",
+				left: "0px",
+				display: 'none',
+				'z-index': "999999",
+			});
+		
+
+			$closeBtn.css({
+				float: 'right',
+				"padding-right": "10px"
+			});
+			$closeBtn.click(function(){
+				$barDiv.slideUp('fast');
+				return false;
+			});
+		
+			//add a small style sheet to the host head. because easyxdm won't let us set the styles of the iframe it generates
+			$(head).append("<style type=\"text/css\">#easyXDM_default0_provider{ float: left;}</style>");
+			$barDiv.append($closeBtn);
+			$('body').prepend($barDiv);
+		
+		
+			rpc = new easyXDM.Rpc({
+			    remote: REMOTE+"/frame?url="+encodeURIComponent(window.location.href)+"&title="+encodeURIComponent(window.document.title), // the path to the provider
+					container: $barDiv.get(0),
+					props : {
+						name : window.location.href+"||"+window.document.title,
+						width : '90%',
+						height : '30px',
+						scrolling : 'no',
+						class : "easyxdm",
+						frameborder : '0',
+						style: {
+							float: "left",
+							width: "90%",
+							"padding-left" : "10px",
+						}
+					}
+			}, 
+			{
+			    local: {
+							buildList : function(results_array, successFn, errorFn){									
+								var $linkList = $("#blinkmarks_search_list");
+																	
+								if($linkList.length === 0){
+									$linkList = $("<ul id='blinkmarks_search_list'></ul>").prependTo('body');
+									
+									$linkList.css({
+										position: 'fixed',
+										top: '30px',
+										right: '0px',
+										'z-index': "99999999",
+										background : '#FFF',
+										"list-style-type" : 'none',
+										"padding": "9px"
+									});
+								}
+																	
+								$linkList.empty();
+																	
+								if(results_array.length === 0){
+									$linkList.hide();
+								}else{
+									for(var i=0; i<results_array.length; i++){
+										$linkList.append('<li><a href="'+results_array[i].url+'">"'+results_array[i].title+'"</a></li>');
+									}
+									$linkList.show();
+								}
+							}
+			    },
+					nextAutoSuggest : function(){
+						var $selected =$('#blinkmarks_search_list li.selected')
+								,total = $('#blinkmarks_search_list li').length
+								;
+						
+						if(total === 0){
+							return false;
+						}else{
+							if($selected.length === 0){
+								$('#blinkmarks_search_list li:first').addClass('selected');
+							}else if(($selected.get() + 1) == total){
+								$selected.removeClass('selected');
+								$('#blinkmarks_search_list li:first').addClass('selected');
+						}else{
+								$selected.removeClass('selected')
+								.next()
+								.addClass('selected')
 							}
 						}
-				}, 
-				{
-				    local: {
-								buildList : function(results_array, successFn, errorFn){									
-									var $linkList = $("#blinkmarks_search_list");
-																		
-									if($linkList.length == 0){
-										console.log("building new link list");
-										$linkList = $("<ul id='blinkmarks_search_list'></ul>").prependTo('body');
-										
-										$linkList.css({
-											position: 'fixed',
-											top: '30px',
-											right: '0px',
-											'z-index': "99999999",
-											background : '#FFF',
-											"list-style-type" : 'none',
-											"padding": "9px"
-										});
-									}
-																		
-									$linkList.empty();
-									
-									if(results_array.length = 0){
-										$linkList.hide();
-									}else{
-										for(var i=0; i<results_array.length; i++){
-											$linkList.append('<li><a href="'+results_array[i].url+'">"'+results_array[i].title+'"</a></li>');
-										}
-									}
-								}
-				    }
-				});
+					},
+					previousAutoSuggest : function(){
 						
-				$barDiv.slideDown('fast', function(){ bar_built = true;});
-			}
-		})(jQuery.noConflict());
+					}
+			});
+					
+			$barDiv.slideDown('fast', function(){ bar_built = true;});
+		}
 	}
 	
 	
 	/*
 	*
-	* Lets load 3rd party dependencys form external domains!
+	* Lets load 3rd party dependencys from external domains!
 	*
 	*/	
 	function scriptOnLoad(){
+		console.log("script onload", typeof jQuery, typeof easyXDM, typeof JSON);
 		if(typeof jQuery == "undefined" || !jQuery ||
 		   typeof easyXDM == "undefined" || !easyXDM ||
 		   typeof JSON == "undefined" || !JSON){
 			return;
 		}
-			buildBar();
+		
+
+		buildBar();
 	}
 	
 	//If there is no jquery on the page load the latest
@@ -138,7 +162,7 @@ var blinkmarks = function(){
 		s.setAttribute('type', "text/javascript");
 		s.setAttribute('src','http://jquery.com/src/jquery-latest.js');
 		head.appendChild(s);
-		s.onload = buildBar;
+		s.onload = scriptOnLoad;
 		s.onreadystatechange = function () {
 			if (this.readyState == 'complete' || this.readyState == 'loaded'){
 				console.log('Jquery Loaded');

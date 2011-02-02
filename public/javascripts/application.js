@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	var rpc = window.parent.rpc;
 	$('.autobox').autobox();
 	
 	$('.add').live('click', function(){
@@ -47,25 +48,41 @@ $(document).ready(function(){
 		});
 		return false;
 	});
+
+
+function typeAheadCall(){
+	var $this = $(this);
+	$.ajax({
+		url: "/bar/search",
+		type: "post",
+		data: {
+			query: $this.val()
+		},
+		success: function(data){
+			rpc.buildList(data);
+		},
+		error: function(){
+			console.log("key up broke");
+		},
+		dataType: 'json'
+	});
+	return false;
+}	
 	
+	$('#search_input').keyup(typeAheadCall);
+	$('#search_input').parent('form').submit(typeAheadCall);
 	
-	$('#search_input').keyup(function(){
-		var $this = $(this);
-		$.ajax({
-			url: "/bar/search",
-			type: "post",
-			data: {
-				query: $this.val()
-			},
-			success: function(data){
-				window.parent.rpc.buildList(data);
-			},
-			error: function(){
-				console.log("key up broke");
-			},
-			dataType: 'json'
-		});
-		return false;
+	$('#search_input').keypress(function(e){
+		console.log("event keycode?", e.keycode, e.keyCode);
+		if(e.keyCode == 40){
+			//down arrow
+			rpc.nextAutoSuggest();
+		}
+		
+		if(e.keyCode == 38){
+			//up arrow
+			rpc.previousAutoSuggest();
+		}
 	});
 	
 });
