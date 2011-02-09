@@ -175,7 +175,7 @@ var blinkmarks = function(){
 	if(typeof easyXDM === "undefined" || !easyXDM){
 		s1 = document.createElement("script");
 	    s1.type = "text/javascript";
-	    s1.src = REMOTE + "javascripts/easyXDM-2.4.9.102/easyXDM.debug.js";
+	    s1.src = REMOTE + "javascripts/easyXDM-2.4.9.102/<%= easyXDM %>";
 		s1.onload = scriptOnLoad;
 	    s1.onreadystatechange = function(){
 	        if (this.readyState === "complete" || this.readyState === "loaded") {
