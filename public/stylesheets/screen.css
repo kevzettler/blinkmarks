@@ -64,7 +64,7 @@ a img {
 
 /* incase an inverted custom gradient isn't specified */
 /* line 176, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
-.fancy-button-reset-base-class, .button {
+.fancy-button-reset-base-class {
   font-family: "Lucida Grande", Lucida, Arial, sans-serif;
   background: url('/public/images/button_bg.png?1293418382') repeat-x bottom left;
   margin: 0;
@@ -77,131 +77,11 @@ a img {
   font-weight: bold;
 }
 /* line 165, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
-.fancy-button-reset-base-class::-moz-focus-inner, .button::-moz-focus-inner {
+.fancy-button-reset-base-class::-moz-focus-inner {
   border: none;
   padding: 0;
 }
 /* line 168, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
-.fancy-button-reset-base-class:focus, .button:focus {
+.fancy-button-reset-base-class:focus {
   outline: none;
-}
-
-/* line 1, ../../sass/bar/_index.sass */
-.blinkmarkbar {
-  background: white;
-  font-family: arial, sans-serif;
-  padding-top: 2px;
-}
-
-/* line 6, ../../sass/bar/_index.sass */
-.barinput {
-  float: left;
-}
-
-/* line 9, ../../sass/bar/_index.sass */
-.button {
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -o-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -khtml-border-radius: 5px;
-  border-radius: 5px;
-  font-size: 12pt;
-  line-height: 1.2em;
-  padding: 0.3em 1em;
-  border-width: 1px;
-  background-color: white;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(10%, #ffffff), color-stop(50%, #e2e2e2), color-stop(50%, #dbdbdb), color-stop(100%, #f4f4f4));
-  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 10%, #e2e2e2 50%, #dbdbdb 50%, #f4f4f4 100%);
-  background-image: linear-gradient(top, #ffffff 0%, #ffffff 10%, #e2e2e2 50%, #dbdbdb 50%, #f4f4f4 100%);
-  border-color: #c4c4c4;
-  text-shadow: white 0px 1px 1px;
-  -moz-box-shadow: rgba(255, 255, 255, 0.918) 0 0 0.1em 1px inset;
-  -webkit-box-shadow: rgba(255, 255, 255, 0.918) 0 0 0.1em 1px inset;
-  -o-box-shadow: rgba(255, 255, 255, 0.918) 0 0 0.1em 1px inset;
-  box-shadow: rgba(255, 255, 255, 0.918) 0 0 0.1em 1px inset;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding;
-  -o-background-clip: padding-box;
-  -ms-background-clip: padding-box;
-  -khtml-background-clip: padding-box;
-  background-clip: padding-box;
-  float: left;
-}
-/* line 120, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
-.button, .button:visited {
-  color: #222222;
-}
-/* line 31, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
-.button:hover, .button:focus {
-  background-color: white;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(10%, #ffffff), color-stop(50%, #dbdbdb), color-stop(50%, #d3d3d3), color-stop(100%, #ededed));
-  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 10%, #dbdbdb 50%, #d3d3d3 50%, #ededed 100%);
-  background-image: linear-gradient(top, #ffffff 0%, #ffffff 10%, #dbdbdb 50%, #d3d3d3 50%, #ededed 100%);
-  border-color: #bcbcbc;
-  text-shadow: white 0px 1px 1px;
-}
-/* line 120, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
-.button:hover, .button:hover:visited, .button:focus, .button:focus:visited {
-  color: #222222;
-}
-/* line 36, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
-.button:active {
-  background-color: white;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #dbdbdb), color-stop(30%, #e0e0e0), color-stop(50%, #d6d6d6), color-stop(50%, #cecece), color-stop(100%, #efefef));
-  background-image: -moz-linear-gradient(top, #dbdbdb 0%, #e0e0e0 30%, #d6d6d6 50%, #cecece 50%, #efefef 100%);
-  background-image: linear-gradient(top, #dbdbdb 0%, #e0e0e0 30%, #d6d6d6 50%, #cecece 50%, #efefef 100%);
-  border-color: #b4b4b4;
-  text-shadow: white 0px -1px -1px;
-  -moz-box-shadow: #c4c4c4 0 0.08em 0.1em 1px inset;
-  -webkit-box-shadow: #c4c4c4 0 0.08em 0.1em 1px inset;
-  -o-box-shadow: #c4c4c4 0 0.08em 0.1em 1px inset;
-  box-shadow: #c4c4c4 0 0.08em 0.1em 1px inset;
-}
-/* line 120, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
-.button:active, .button:active:visited {
-  color: #222222;
-}
-
-/* line 13, ../../sass/bar/_index.sass */
-.logo {
-  float: left;
-  position: relative;
-  bottom: 6px;
-}
-
-/* line 18, ../../sass/bar/_index.sass */
-.add, .remove {
-  float: left;
-  padding: 0 10px 0 10px;
-}
-
-/* line 22, ../../sass/bar/_index.sass */
-.alert {
-  display: none;
-}
-
-/* line 25, ../../sass/bar/_index.sass */
-.notice {
-  display: none;
-}
-
-/* line 29, ../../sass/bar/_index.sass */
-.tag_form {
-  float: left;
-}
-
-/* line 32, ../../sass/bar/_index.sass */
-.tags {
-  float: left;
-}
-
-/* line 35, ../../sass/bar/_index.sass */
-.search_form {
-  float: right;
-}
-
-/* line 37, ../../sass/bar/_index.sass */
-.search {
-  float: right;
 }
