@@ -54,13 +54,13 @@ var blinkmarks = function(){
 			}).attr("title", "click to close blinkmarks");
 			
 			$closeBtn.click(function(){
-				//$barDiv.slideUp('fast');
 				$('.blinkmarks').fadeOut('fast');
 				return false;
 			});
 		
 			//add a small style sheet to the host head. because easyxdm won't let us set the styles of the iframe it generates
-			$(head).append("<style type=\"text/css\">#easyXDM_default0_provider{ float: left;}</style>");
+			//$(head).append("<style type=\"text/css\">#easyXDM_default0_provider{ float: left;}</style>");
+			$(head).append('<link media="screen" type="text/css" href="'+REMOTE+'stylesheets/external.css" rel="stylesheet">');
 			$barDiv.append($closeBtn);
 			$('body').prepend($barDiv);
 		
