@@ -8,6 +8,7 @@ class BarController < ApplicationController
     @blinkmark_url = params[:url]
     @blinkmark_title = params[:title]
     @blinkmark = current_user.blinkmarks.find_by_url(params[:url])
+    puts @blinkmark.inspect
   end
   
   def add
@@ -28,15 +29,41 @@ class BarController < ApplicationController
   
   
   def tag
-    tags = params[:tags].split(" ")
-    blinkmark = current_user.find('')
+    tags = params[:tags].split(",").collect!{|x| x.strip}
+    blinkmark = current_user.blinkmarks.find_by_url(params[:url])
+    blinkmark.tags.concat(tags)
+    
+    respond_to do |format|
+      if blinkmark.save
+          format.html{redirect_to "/bar?url=" + URI.escape(params[:url]) +"&title=" + URI.escape(params[:title])}
+          format.json{render :json => current_user.blinkmarks, :status => :created}
+        else
+          format.json{render :json => current_user.errors, :status => :unprocessable_entity}
+      end
+    end
+  end
+  
+  def remove_tag
+    tag = params[:tag]
+    blinkmark = current_user.blinkmarks.find_by_url(params[:url])
+    tags = blinkmark.tags
+    tags.delete(tag)
+    puts "blinkmark before drop"
+    puts blinkmark.inspect
+    puts blinkmark.tags.index(tag)
+    puts blinkmark.tags.inspect
     blinkmark.tags = tags
     
-    if current_user.save
-        format.html{redirect_to "/bar?url=" + URI.escape(params[:url]) +"&title=" + URI.escape(params[:title])}
-        format.json{render :json => current_user.blinkmarks, :status => :created}
-      else
-       format.json{render :json => current_user.errors, :status => :unprocessable_entity}
+    puts "blinkmark after drop"
+    puts blinkmark.inspect
+    
+    respond_to do |format|
+      if blinkmark.save
+          format.html{redirect_to "/bar?url=" + URI.escape(params[:url]) +"&title=" + URI.escape(params[:title])}
+          format.json{render :json => current_user.blinkmarks, :status => :created}
+        else
+          format.json{render :json => current_user.errors, :status => :unprocessable_entity}
+      end
     end
   end
   

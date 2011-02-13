@@ -1,4 +1,7 @@
 var blinkmarks = function(){
+	if(typeof window.console != 'object'){
+		window.console = {log: function(){return false;}};
+	}
 	
 	var REMOTE = "<%= root_url %>"
 		,head = document.getElementsByTagName('head')[0]
@@ -25,7 +28,7 @@ var blinkmarks = function(){
 		}
 		
 		if(bar_built === false){
-			var $barDiv = $('<div id="container" class="blinkmarks"></div>')
+			var $barDiv = $('<div class="blinkmarks container"></div>')
 				,$closeBtn = $('<a href="#">X</a>')
 				;	
 			
@@ -90,16 +93,6 @@ var blinkmarks = function(){
 																	
 								if($linkList.length === 0){
 									$linkList = $("<ul class='blinkmarks search_list'></ul>").prependTo('body');
-									
-									$linkList.css({
-										position: 'fixed',
-										top: '30px',
-										right: '0px',
-										'z-index': "99999999",
-										background : '#FFF',
-										"list-style-type" : 'none',
-										"padding": "9px"
-									});
 								}
 																	
 								$linkList.empty();

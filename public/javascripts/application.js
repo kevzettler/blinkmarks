@@ -1,4 +1,8 @@
 $(document).ready(function(){
+	if(typeof window.console !== 'object'){
+		window.console = {log: function(){return false;}};
+	}
+	
 	var rpc = window.parent.rpc;
 	$('.autobox').autobox();
 	
@@ -17,9 +21,7 @@ $(document).ready(function(){
 				$this.text('Remove from favorites');
 				$this.removeClass('add');
 				$this.addClass('remove');
-				var $form =$('<form method="post" action="bar/tags" class="tag_form">\
-					<input type="text" class="autobox tags" value="Add Tags" />\
-				</form>');
+				var $form = $('<form method="post" action="bar/tags" class="tag_form"><input type="text" class="autobox tags" value="Add Tags" /></form>');
 				$this.after($form);
 				$form.find('input.autobox').autobox();
 				
@@ -52,7 +54,7 @@ $(document).ready(function(){
 
 function typeAheadCall(e){
 	console.log("type ahead call", e);
-	if(e.keyCode == 40 || e.keyCode == 38){
+	if(e.keyCode === 40 || e.keyCode === 38){
 		//do not rebuild on up down
 		return false;
 	}
@@ -91,22 +93,77 @@ function typeAheadCall(e){
 		
 		console.log("event keycode?", rpc, e, e.keycode, e.keyCode);
 		
-		if(e.keyCode == 40 || e.keyCode == 38){
+		if(e.keyCode === 40 || e.keyCode === 38){
 			console.log("unbinding keyup from", $this);
 			//$this.unbind('keyup');
 		}
 		
-		if(e.keyCode == 40){
+		if(e.keyCode === 40){
 			//down arrow
 			rpc.nextAutoSuggest();
-			//$this.bind('keyup', typeAheadCall);
 		}
 		
-		if(e.keyCode == 38){
+		if(e.keyCode === 38){
 			//up arrow
 			rpc.prevAutoSuggest();
-			//$this.bind('keyup', typeAheadCall);
 		}
+	});
+	
+	function tagSubmit(event){
+		var $this = $(this)
+				,$input = $(this).find('input.tags')
+				,$container = $(this).find('#tag_container')
+				,tags = $input.val().split(',')
+				;
+		$.ajax({
+			url : "/bar/tag",
+			type: "post",
+			data: {
+				url: window.name.split("||")[0]
+				,title: window.name.split("||")[1]
+				,tags: $input.val()
+			},
+			success :function(data){
+				//add tag inputs
+				var i;
+				for(i=0; i<tags.length; i++){
+					var tag = tags[i].replace(/^\s+|\s+$/g, '')
+							,$tag = $('<span style="display:none;"><input type="checkbox" name="tags" checked="checked" id="'+tag+'_tag" /><label>'+tag+'</label></span>')
+							;
+					$tag.prependTo($container);
+					$tag.fadeIn('slow');
+				}
+			},
+			dataType: 'json'
+		});
+		return false;
+	}
+	
+	$("form.tag_form").submit(tagSubmit);
+	
+	
+	$("#tag_container input").click(function(){
+		var $this = $(this)
+				,$container = $this.parent()
+				,$label = $this.next()
+				;
+		$.ajax({
+			url : "/bar/remove_tag",
+			type: "post",
+			data: {
+				url: window.name.split("||")[0]
+				,title: window.name.split("||")[1]
+				,tag: $this.next('label').text()
+			},
+			success :function(data){
+				$container.fadeOut('slow', function(){
+					$container.remove();
+				});
+			},
+			dataType: 'json'
+		});
+				
+		return false;
 	});
 	
 });
