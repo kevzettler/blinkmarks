@@ -2,6 +2,8 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
 
+gem "compass"
+
 gem "mongo_mapper",
 	:git => 'git://github.com/jnunemaker/mongomapper',
 	:branch => 'rails3'

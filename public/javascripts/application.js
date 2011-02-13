@@ -50,7 +50,13 @@ $(document).ready(function(){
 	});
 
 
-function typeAheadCall(){
+function typeAheadCall(e){
+	console.log("type ahead call", e);
+	if(e.keyCode == 40 || e.keyCode == 38){
+		//do not rebuild on up down
+		return false;
+	}
+	
 	var $this = $(this);
 	$.ajax({
 		url: "/bar/search",
@@ -68,9 +74,17 @@ function typeAheadCall(){
 	});
 	return false;
 }	
-	
 	$('#search_input').bind('keyup', typeAheadCall);
-	$('#search_input').parent('form').submit(typeAheadCall);
+	
+	$('#search_input').parent('form').submit(function(e){
+		rpc.getSelected(function(result){
+			console.log('selected results?', result);
+			if(result === false){
+				typeAheadCall(e);
+			}
+		});
+		return false;
+	});
 	
 	$('#search_input').keypress(function(e){
 		var $this = $(this);
@@ -79,19 +93,19 @@ function typeAheadCall(){
 		
 		if(e.keyCode == 40 || e.keyCode == 38){
 			console.log("unbinding keyup from", $this);
-			$this.unbind('keyup');
+			//$this.unbind('keyup');
 		}
 		
 		if(e.keyCode == 40){
 			//down arrow
 			rpc.nextAutoSuggest();
-			$this.bind('keyup', typeAheadCall);
+			//$this.bind('keyup', typeAheadCall);
 		}
 		
 		if(e.keyCode == 38){
 			//up arrow
-			rpc.previousAutoSuggest();
-			$this.bind('keyup', typeAheadCall);
+			rpc.prevAutoSuggest();
+			//$this.bind('keyup', typeAheadCall);
 		}
 	});
 	

@@ -4,9 +4,14 @@
 	<a href="remove?title=<%= @blinkmark_title %>&amp;url=<%= @blinkmark_url %>" class="remove">Remove from bookmarks</a>
 	<form method="post" action="bar/tags" class="tag_form">
 		<input type="text" class="autobox tags" value="Add Tags" />
+		<div id="tag_container">
+		<span class="tag"><input type="checkbox" checked="checked" name="tags" id="test"/><label for="test">css</label></span>
+		<span class="tag"><input type="checkbox" checked="checked" name="tags" id="web_design"/><label for="web_design">web design</label></span>
+		<span class="tag"><input type="checkbox" checked="checked" name="tags" id="html5"/><label for="html5">html5</label></span>
+		</div>
 	</form>
 <% end %>
 
 <form method="post" action="/bar/search" class="search_form">
-	<input type="text" class="autobox search" id="search_input" value="Search, tags or title"/>
+	<input type="text" class="autobox search" id="search_input" value="Search, tags or title" autocomplete="off"/>
 </form>

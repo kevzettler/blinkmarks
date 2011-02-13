@@ -1,4 +1,17 @@
 @import "external_reset"
+@import "shared"
 
 #easyXDM_default0_provider
 	float: left
+	
+ul.blinkmarks.search_list
+	font-size: 14px
+	li
+		padding: 5px 0
+	li, li a
+		color: $link_color
+	li.selected
+		background-color: $link_color
+		border: 1px solid black
+		a
+			color: #FFF

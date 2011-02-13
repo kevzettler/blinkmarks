@@ -50,7 +50,7 @@ var blinkmarks = function(){
 				float: 'right',
 				"padding-right": "10px",
 				"font-size": "18px",
-				"padding-top": "5px",
+				"padding-top": "5px"
 			}).attr("title", "click to close blinkmarks");
 			
 			$closeBtn.click(function(){
@@ -86,10 +86,10 @@ var blinkmarks = function(){
 			{
 			    local: {
 							buildList : function(results_array, successFn, errorFn){									
-								var $linkList = $("#search_list.blinkmarks");
+								var $linkList = $("ul.blinkmarks.search_list");
 																	
 								if($linkList.length === 0){
-									$linkList = $("<ul id='search_list' class='blinkmarks'></ul>").prependTo('body');
+									$linkList = $("<ul class='blinkmarks search_list'></ul>").prependTo('body');
 									
 									$linkList.css({
 										position: 'fixed',
@@ -114,29 +114,62 @@ var blinkmarks = function(){
 								}
 							},
 							nextAutoSuggest : function(){
-								console.log("called next Auto Suggest!!!!");
-								var $selected =$('#blinkmarks_search_list li.selected')
-										,total = $('#blinkmarks_search_list li').length
+								var $all = $('.blinkmarks.search_list li')
+										,$selected = $('.blinkmarks.search_list li.selected')
+										,index = $all.index($selected.get(0))
+										,total = $('.blinkmarks.search_list li').length
 										;
+										
+								console.log("moving to next", index, total, $selected, $all);
 						
 								if(total === 0){
 									return false;
 								}else{
 									if($selected.length === 0){
-										$('#blinkmarks_search_list li:first').addClass('selected');
-									}else if(($selected.get() + 1) == total){
+										$('.blinkmarks.search_list li:first').addClass('selected');
+									}else if(index + 1 == total){
+										console.log("removing selected because we are at the end");
 										$selected.removeClass('selected');
-										$('#blinkmarks_search_list li:first').addClass('selected');
-								}else{
+										$('.blinkmarks.search_list li:first').addClass('selected');
+									}else{
+										console.log("putting selected to the next");
 										$selected.removeClass('selected')
 										.next()
 										.addClass('selected')
 									}
 								}
 							},
-							previousAutoSuggest : function(){
-								console.log("called Previous auto suggest");
+							prevAutoSuggest : function(){
+								var $all = $('.blinkmarks.search_list li')
+										,$selected = $('.blinkmarks.search_list li.selected')
+										,index = $all.index($selected.get(0))
+										,total = $all.length
+										;
+										
+								console.log($selected.get(), $all, index, index-1, total);
+								
+								if(total === 0){
+									return false;
+								}else{
+									if(index-1 < 0){
+										console.log("removing selected because we are at the end");
+										$selected.removeClass('selected');
+										$('.blinkmarks.search_list li:last').addClass('selected');
+									}else{
+										$selected.removeClass('selected')
+										.prev()
+										.addClass('selected')
+									}
+								}
+							},
+						 getSelected : function(){
+							$selected = $('.blinkmarks.search_list li.selected');
+							if($selected.length != 0){
+								window.location = $selected.find('a').attr('href');
+							}else{ 
+								return false;
 							}
+						}
 				}
 			});
 					
