@@ -10,21 +10,22 @@ var blinkmarks = function(){
 	
 	//Function for building the bar	
 	function buildBar(){
-		console.log('building bar');
-		var $existing_bar = jQuery('div#blinkmarks');
+		var $ = jQuery.noConflict()
+				,$existing_bar = jQuery('div#container.blinkmarks')
+				;
 				
 		//remove the bar if its already rendered		
-		if($existing_bar.length > 0 && $existing_bar.is(":visible")){ 
-			$existing_bar.slideUp('fast');
+		if($existing_bar.length > 0 && $existing_bar.is(":visible")){
+			$('.blinkmarks').fadeOut('fast');
+//			$existing_bar.slideUp('fast');
 			return false;
 		}else if($existing_bar.length > 0 && $existing_bar.is(":not(:visible)")){
-			$existing_bar.slideDown('fast');
+			$existing_bar.slideDown('fast').find('*').fadeIn('fast');
 			return false;
 		}
 		
-		var $ = jQuery.noConflict();
 		if(bar_built === false){
-			var $barDiv = $('<div id="blinkmarks"></div>')
+			var $barDiv = $('<div id="container" class="blinkmarks"></div>')
 				,$closeBtn = $('<a href="#">X</a>')
 				;	
 			
@@ -35,23 +36,26 @@ var blinkmarks = function(){
 				'background-image': "url("+REMOTE+"images/bar_back.png)",
 				'background-repeat': 'repeat-x',
 				border: 'none',
-				padding: '0',
 				margin: '0',
 				position: 'fixed',
 				'padding': "5px 0",
 				top: "0px",
 				left: "0px",
 				display: 'none',
-				'z-index': "999999",
+				'z-index': "999999"
 			});
 		
 
 			$closeBtn.css({
 				float: 'right',
-				"padding-right": "10px"
-			});
+				"padding-right": "10px",
+				"font-size": "18px",
+				"padding-top": "5px",
+			}).attr("title", "click to close blinkmarks");
+			
 			$closeBtn.click(function(){
-				$barDiv.slideUp('fast');
+				//$barDiv.slideUp('fast');
+				$('.blinkmarks').fadeOut('fast');
 				return false;
 			});
 		
@@ -69,22 +73,23 @@ var blinkmarks = function(){
 						width : '90%',
 						height : '30px',
 						scrolling : 'no',
-						class : "easyxdm",
 						frameborder : '0',
+						id : "frame",
+						className: "blinkmarks",
 						style: {
 							float: "left",
 							width: "90%",
-							"padding-left" : "10px",
+							"padding-left" : "10px"
 						}
 					}
 			}, 
 			{
 			    local: {
 							buildList : function(results_array, successFn, errorFn){									
-								var $linkList = $("#blinkmarks_search_list");
+								var $linkList = $("#search_list.blinkmarks");
 																	
 								if($linkList.length === 0){
-									$linkList = $("<ul id='blinkmarks_search_list'></ul>").prependTo('body');
+									$linkList = $("<ul id='search_list' class='blinkmarks'></ul>").prependTo('body');
 									
 									$linkList.css({
 										position: 'fixed',
@@ -107,31 +112,32 @@ var blinkmarks = function(){
 									}
 									$linkList.show();
 								}
-							}
-			    },
-					nextAutoSuggest : function(){
-						var $selected =$('#blinkmarks_search_list li.selected')
-								,total = $('#blinkmarks_search_list li').length
-								;
+							},
+							nextAutoSuggest : function(){
+								console.log("called next Auto Suggest!!!!");
+								var $selected =$('#blinkmarks_search_list li.selected')
+										,total = $('#blinkmarks_search_list li').length
+										;
 						
-						if(total === 0){
-							return false;
-						}else{
-							if($selected.length === 0){
-								$('#blinkmarks_search_list li:first').addClass('selected');
-							}else if(($selected.get() + 1) == total){
-								$selected.removeClass('selected');
-								$('#blinkmarks_search_list li:first').addClass('selected');
-						}else{
-								$selected.removeClass('selected')
-								.next()
-								.addClass('selected')
+								if(total === 0){
+									return false;
+								}else{
+									if($selected.length === 0){
+										$('#blinkmarks_search_list li:first').addClass('selected');
+									}else if(($selected.get() + 1) == total){
+										$selected.removeClass('selected');
+										$('#blinkmarks_search_list li:first').addClass('selected');
+								}else{
+										$selected.removeClass('selected')
+										.next()
+										.addClass('selected')
+									}
+								}
+							},
+							previousAutoSuggest : function(){
+								console.log("called Previous auto suggest");
 							}
-						}
-					},
-					previousAutoSuggest : function(){
-						
-					}
+				}
 			});
 					
 			$barDiv.slideDown('fast', function(){ bar_built = true;});

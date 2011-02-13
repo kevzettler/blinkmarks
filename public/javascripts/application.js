@@ -69,19 +69,29 @@ function typeAheadCall(){
 	return false;
 }	
 	
-	$('#search_input').keyup(typeAheadCall);
+	$('#search_input').bind('keyup', typeAheadCall);
 	$('#search_input').parent('form').submit(typeAheadCall);
 	
 	$('#search_input').keypress(function(e){
-		console.log("event keycode?", e.keycode, e.keyCode);
+		var $this = $(this);
+		
+		console.log("event keycode?", rpc, e, e.keycode, e.keyCode);
+		
+		if(e.keyCode == 40 || e.keyCode == 38){
+			console.log("unbinding keyup from", $this);
+			$this.unbind('keyup');
+		}
+		
 		if(e.keyCode == 40){
 			//down arrow
 			rpc.nextAutoSuggest();
+			$this.bind('keyup', typeAheadCall);
 		}
 		
 		if(e.keyCode == 38){
 			//up arrow
 			rpc.previousAutoSuggest();
+			$this.bind('keyup', typeAheadCall);
 		}
 	});
 	
