@@ -8,7 +8,7 @@
 	<%= stylesheet_link_tag "reset.css" %>
 </head>
 <body style="margin:0;padding:0;">
-<iframe src="<%= bar_url + "?title=#{@pass_title}&url=#{@pass_url}"%>" width="100%" style="overflow:hidden;border:0;" name="<%=@pass_url+"||"+@pass_title%>"></iframe>
+<iframe src="<%= bar_url + "?title="+URI.escape(@pass_title)+"&url="+URI.escape(@pass_url)%>" width="100%" style="overflow:hidden;border:0;" name="<%=@pass_url+"||"+@pass_title%>"></iframe>
 
 	<script type="text/javascript">
 		function sendMessage(message, url){

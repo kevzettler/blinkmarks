@@ -21,7 +21,7 @@ $(document).ready(function(){
 				$this.text('Remove from favorites');
 				$this.removeClass('add');
 				$this.addClass('remove');
-				var $form = $('<form method="post" action="bar/tags" class="tag_form"><input type="text" class="autobox tags" value="Add Tags" /></form>');
+				var $form = $('<form method="post" action="bar/tag" class="tag_form"><input type="text" class="autobox tags" value="Add Tags" /></form>');
 				$this.after($form);
 				$form.find('input.autobox').autobox();
 				
@@ -53,7 +53,7 @@ $(document).ready(function(){
 
 
 function typeAheadCall(e){
-	console.log("type ahead call", e);
+	console.log("type ahead call", e, e.keyCode);
 	if(e.keyCode === 40 || e.keyCode === 38){
 		//do not rebuild on up down
 		return false;
@@ -88,7 +88,7 @@ function typeAheadCall(e){
 		return false;
 	});
 	
-	$('#search_input').keypress(function(e){
+	$('#search_input').keydown(function(e){
 		var $this = $(this);
 		
 		console.log("event keycode?", rpc, e, e.keycode, e.keyCode);
@@ -130,7 +130,7 @@ function typeAheadCall(e){
 					var tag = tags[i].replace(/^\s+|\s+$/g, '')
 							,$tag = $('<span style="display:none;"><input type="checkbox" name="tags" checked="checked" id="'+tag+'_tag" /><label>'+tag+'</label></span>')
 							;
-					$tag.prependTo($container);
+					$tag.appendTo($container);
 					$tag.fadeIn('slow');
 				}
 			},
@@ -139,10 +139,10 @@ function typeAheadCall(e){
 		return false;
 	}
 	
-	$("form.tag_form").submit(tagSubmit);
+	$("form.tag_form").live('submit',tagSubmit);
 	
 	
-	$("#tag_container input").click(function(){
+	$("#tag_container input").live('click',function(){
 		var $this = $(this)
 				,$container = $this.parent()
 				,$label = $this.next()
