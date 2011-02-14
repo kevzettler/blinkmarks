@@ -182,21 +182,22 @@ ul.blinkmarks.search_list {
   list-style-type: none;
   padding: 9px;
   font-size: 14px;
+  min-wdith: 282px;
 }
-/* line 19, ../../sass/external.sass */
+/* line 20, ../../sass/external.sass */
 ul.blinkmarks.search_list li {
   padding: 5px 0;
 }
-/* line 21, ../../sass/external.sass */
+/* line 22, ../../sass/external.sass */
 ul.blinkmarks.search_list li, ul.blinkmarks.search_list li a {
   color: #36a9e1;
 }
-/* line 23, ../../sass/external.sass */
+/* line 24, ../../sass/external.sass */
 ul.blinkmarks.search_list li.selected {
   background-color: #36a9e1;
   border: 1px solid black;
 }
-/* line 26, ../../sass/external.sass */
+/* line 27, ../../sass/external.sass */
 ul.blinkmarks.search_list li.selected a {
   color: white;
 }

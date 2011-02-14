@@ -87,29 +87,33 @@ a {
   color: #36a9e1;
 }
 
-/* line 7, ../../sass/bar.sass */
+/* line 6, ../../sass/bar.sass */
+input[type="text"] {
+  padding-right: 16px;
+}
+/* line 8, ../../sass/bar.sass */
 input[type="text"]focus {
   border-color: #36a9e1;
 }
 
-/* line 10, ../../sass/bar.sass */
+/* line 11, ../../sass/bar.sass */
 input.loading {
   background: url("/images/ajax-loader.gif") no-repeat center right;
 }
 
-/* line 13, ../../sass/bar.sass */
+/* line 14, ../../sass/bar.sass */
 .blinkmarkbar {
   background: white;
   font-family: arial, sans-serif;
   padding-top: 2px;
 }
 
-/* line 18, ../../sass/bar.sass */
+/* line 19, ../../sass/bar.sass */
 .barinput {
   float: left;
 }
 
-/* line 21, ../../sass/bar.sass */
+/* line 22, ../../sass/bar.sass */
 .button {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -174,54 +178,54 @@ input.loading {
   color: #222222;
 }
 
-/* line 25, ../../sass/bar.sass */
+/* line 26, ../../sass/bar.sass */
 .logo {
   float: left;
   position: relative;
   bottom: 6px;
 }
 
-/* line 30, ../../sass/bar.sass */
+/* line 31, ../../sass/bar.sass */
 .add, .remove {
   float: left;
   padding: 0 10px 0 10px;
 }
 
-/* line 34, ../../sass/bar.sass */
+/* line 35, ../../sass/bar.sass */
 .alert {
   display: none;
 }
 
-/* line 37, ../../sass/bar.sass */
+/* line 38, ../../sass/bar.sass */
 .notice {
   display: none;
 }
 
-/* line 41, ../../sass/bar.sass */
+/* line 42, ../../sass/bar.sass */
 .tag_form {
   float: left;
 }
 
-/* line 44, ../../sass/bar.sass */
+/* line 45, ../../sass/bar.sass */
 .tags {
   float: left;
 }
 
-/* line 47, ../../sass/bar.sass */
+/* line 48, ../../sass/bar.sass */
 .search_form {
   float: right;
 }
 
-/* line 49, ../../sass/bar.sass */
+/* line 50, ../../sass/bar.sass */
 .search {
   float: right;
 }
 
-/* line 52, ../../sass/bar.sass */
+/* line 53, ../../sass/bar.sass */
 #tag_container {
   float: left;
 }
-/* line 54, ../../sass/bar.sass */
+/* line 55, ../../sass/bar.sass */
 #tag_container span {
   float: left;
 }

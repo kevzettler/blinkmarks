@@ -117,7 +117,7 @@ function typeAheadCall(e){
 				,$container = $(this).find('#tag_container')
 				,tags = $input.val().split(',')
 				;
-		$input.addClass('loading');
+		$input.addClass('loading').attr("disabled", "true");
 		$.ajax({
 			url : "/bar/tag",
 			type: "post",
@@ -127,7 +127,7 @@ function typeAheadCall(e){
 				,tags: $input.val()
 			},
 			success :function(data){
-				$input.removeClass('loading');
+				$input.removeClass('loading').attr("disabled", "false");
 				//add tag inputs
 				var i;
 				for(i=0; i<tags.length; i++){
