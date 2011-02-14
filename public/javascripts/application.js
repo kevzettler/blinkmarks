@@ -21,10 +21,9 @@ $(document).ready(function(){
 				$this.text('Remove from favorites');
 				$this.removeClass('add');
 				$this.addClass('remove');
-				var $form = $('<form method="post" action="bar/tag" class="tag_form"><input type="text" class="autobox tags" value="Add Tags" /></form>');
-				$this.after($form);
-				$form.find('input.autobox').autobox();
-				
+				var $form = $('form.tag_form');
+				console.log("showing tag form!!!", $form);
+				$form.show();
 			},
 			dataType: 'json'
 		});
@@ -60,6 +59,7 @@ function typeAheadCall(e){
 	}
 	
 	var $this = $(this);
+	$this.addClass('loading');
 	$.ajax({
 		url: "/bar/search",
 		type: "post",
@@ -68,9 +68,11 @@ function typeAheadCall(e){
 		},
 		success: function(data){
 			rpc.buildList(data);
+			$this.removeClass('loading');
 		},
 		error: function(){
 			console.log("key up broke");
+			$this.removeClass('loading');
 		},
 		dataType: 'json'
 	});
@@ -115,6 +117,7 @@ function typeAheadCall(e){
 				,$container = $(this).find('#tag_container')
 				,tags = $input.val().split(',')
 				;
+		$input.addClass('loading');
 		$.ajax({
 			url : "/bar/tag",
 			type: "post",
@@ -124,6 +127,7 @@ function typeAheadCall(e){
 				,tags: $input.val()
 			},
 			success :function(data){
+				$input.removeClass('loading');
 				//add tag inputs
 				var i;
 				for(i=0; i<tags.length; i++){

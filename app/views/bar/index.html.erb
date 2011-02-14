@@ -2,15 +2,18 @@
 	<a href="/bar/add?title=<%= @blinkmark_title %>&amp;url=<%= @blinkmark_url %>" class="add" >Add to bookmarks</a>
 <% else %>
 	<a href="remove?title=<%= @blinkmark_title %>&amp;url=<%= @blinkmark_url %>" class="remove">Remove from bookmarks</a>
-	<form method="post" action="bar/tag" class="tag_form">
-		<input type="text" class="autobox tags" value="Add tags seperated by commas" />
-		<div id="tag_container">
-		<% @blinkmark.tags.each do |t| %>
-			<span class="tag"><input type="checkbox" checked="checked" name="tags" id="<%= t%>_tag"/><label for="<%= t %>_tag"><%= t %></label></span>
-		<% end %>
-		</div>
-	</form>
 <% end %>
+
+<form method="post" action="bar/tag" class="tag_form" <% if @blinkmark.nil?%> style="display:none;" <% end %>>
+	<input type="text" class="autobox tags" value="Add tags seperated by commas" />
+	<div id="tag_container">
+	<% unless @blinkmark.nil? 
+			@blinkmark.tags.each do |t| %>
+		<span class="tag"><input type="checkbox" checked="checked" name="tags" id="<%= t%>_tag"/><label for="<%= t %>_tag"><%= t %></label></span>
+	<% end 
+	end %>
+	</div>
+</form>
 
 <form method="post" action="/bar/search" class="search_form">
 	<input type="text" class="autobox search" id="search_input" value="Search by, tags or title" autocomplete="off"/>
