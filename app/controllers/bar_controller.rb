@@ -96,6 +96,12 @@ class BarController < ApplicationController
   end
   
   def external
+    response.headers["Last-Modified"] = Time.now.httpdate
+    response.headers["Expires"] = 0
+    # HTTP 1.0
+    response.headers["Pragma"] = "no-cache"
+    # HTTP 1.1 'pre-check=0, post-check=0' (IE specific)
+    response.headers["Cache-Control"] = 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0'
     render :action => 'external', :layout => false, :content_type => 'text/javascript'
   end
   
