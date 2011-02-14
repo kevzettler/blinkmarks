@@ -13,7 +13,7 @@ div.blinkmarks, .blinkmakrs div,
 .blinkmarks cite, cite.blinkmarks, .blinkmarks code, .blinkmarks del, .blinkmarks dfn,
 .blinkmarks em, em.blinkmarks,
 .blinkmarks img, img.blinkmarks,
-ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+.blinkmarks ins, .blinkmarks kbd, .blinkmarks q, .blinkmarks s, .blinkmarks samp, .blinkmarks small, .blinkmarks strike, .blinkmarks strong, .blinkmarks sub, .blinkmarks sup, .blinkmarks tt, .blinkmarks var, .blinkmarks dl, .blinkmarks dt, .blinkmarks dd, .blinkmarks ol, .blinkmarks ul, .blinkmarks li, .blinkmarks fieldset, .blinkmarks form, .blinkmarks label, .blinkmarks legend, .blinkmarks table, .blinkmarks caption, .blinkmarks tbody, .blinkmarks tfoot, .blinkmarks thead, .blinkmarks tr, .blinkmarks th, .blinkmarks td {
   margin: 0;
   padding: 0;
   border: 0;
@@ -76,90 +76,6 @@ table.blinkmarks, .blinkmarks table {
 /* line 70, ../../sass/_external_reset.sass */
 .blinkmarks a img {
   border: none;
-}
-
-/* line 14, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, font, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  font-weight: inherit;
-  font-style: inherit;
-  font-size: 100%;
-  font-family: inherit;
-  vertical-align: baseline;
-}
-
-/* line 17, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-body {
-  line-height: 1;
-  color: black;
-  background: white;
-}
-
-/* line 19, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-ol, ul {
-  list-style: none;
-}
-
-/* line 21, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-table {
-  border-collapse: separate;
-  border-spacing: 0;
-  vertical-align: middle;
-}
-
-/* line 23, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-caption, th, td {
-  text-align: left;
-  font-weight: normal;
-  vertical-align: middle;
-}
-
-/* line 25, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-q, blockquote {
-  quotes: "" "";
-}
-/* line 96, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-q:before, q:after, blockquote:before, blockquote:after {
-  content: "";
-}
-
-/* line 27, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-a img {
-  border: none;
-}
-
-/* incase an inverted custom gradient isn't specified */
-/* line 176, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
-.fancy-button-reset-base-class {
-  font-family: "Lucida Grande", Lucida, Arial, sans-serif;
-  background: url('/public/images/button_bg.png?1293418382') repeat-x bottom left;
-  margin: 0;
-  width: auto;
-  overflow: visible;
-  display: inline-block;
-  cursor: pointer;
-  text-decoration: none;
-  border-style: solid;
-  font-weight: bold;
-}
-/* line 165, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
-.fancy-button-reset-base-class::-moz-focus-inner {
-  border: none;
-  padding: 0;
-}
-/* line 168, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
-.fancy-button-reset-base-class:focus {
-  outline: none;
 }
 
 /* line 4, ../../sass/external.sass */
