@@ -68,6 +68,7 @@ GEM
     fast-stemmer (1.0.0)
     haml (3.0.24)
     i18n (0.5.0)
+    kgio (2.3.1)
     mail (2.2.12)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
@@ -104,6 +105,9 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.23)
+    unicorn (3.4.0)
+      kgio (~> 2.2)
+      rack
     warden (1.0.3)
       rack (>= 1.0.0)
 
@@ -119,3 +123,4 @@ DEPENDENCIES
   mongo_mapper!
   rails (= 3.0.3)
   rails3-generators
+  unicorn
