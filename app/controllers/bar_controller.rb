@@ -31,12 +31,18 @@ class BarController < ApplicationController
   def tag
     tags = params[:tags].split(",").collect!{|x| x.strip}
     blinkmark = current_user.blinkmarks.find_by_url(params[:url])
+    new_tags = tags - blinkmark.tags
     blinkmark.tags.concat(tags)
+    puts "tags before uniq"
+    puts blinkmark.tags.inspect
+    blinkmark.tags = blinkmark.tags.uniq
+    puts "tags after uniq"
+    puts blinkmark.tags.inspect
     
     respond_to do |format|
       if blinkmark.save
           format.html{redirect_to "/bar?url=" + URI.escape(params[:url]) +"&title=" + URI.escape(params[:title])}
-          format.json{render :json => current_user.blinkmarks, :status => :created}
+          format.json{render :json => new_tags.uniq, :status => :created}
         else
           format.json{render :json => current_user.errors, :status => :unprocessable_entity}
       end
@@ -48,14 +54,7 @@ class BarController < ApplicationController
     blinkmark = current_user.blinkmarks.find_by_url(params[:url])
     tags = blinkmark.tags
     tags.delete(tag)
-    puts "blinkmark before drop"
-    puts blinkmark.inspect
-    puts blinkmark.tags.index(tag)
-    puts blinkmark.tags.inspect
     blinkmark.tags = tags
-    
-    puts "blinkmark after drop"
-    puts blinkmark.inspect
     
     respond_to do |format|
       if blinkmark.save

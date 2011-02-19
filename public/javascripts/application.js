@@ -43,7 +43,7 @@ $(document).ready(function(){
 				$this.text('Add to favorites');
 				$this.removeClass('remove');
 				$this.addClass('add');
-				$this.parent().find('form.tag_form').remove();
+				$this.parent().find('form.tag_form').hide();
 			},
 			dataType: 'json'
 		});
@@ -117,7 +117,6 @@ function typeAheadCall(e){
 				,$container = $(this).find('#tag_container')
 				,tags = $input.val().split(',')
 				;
-		$input.addClass('loading').attr("disabled", "true");
 		$.ajax({
 			url : "/bar/tag",
 			type: "post",
@@ -127,11 +126,10 @@ function typeAheadCall(e){
 				,tags: $input.val()
 			},
 			success :function(data){
-				$input.removeClass('loading').attr("disabled", "false");
 				//add tag inputs
 				var i;
-				for(i=0; i<tags.length; i++){
-					var tag = tags[i].replace(/^\s+|\s+$/g, '')
+				for(i=0; i<data.length; i++){
+					var tag = data[i].replace(/^\s+|\s+$/g, '')
 							,$tag = $('<span style="display:none;"><input type="checkbox" name="tags" checked="checked" id="'+tag+'_tag" /><label>'+tag+'</label></span>')
 							;
 					$tag.appendTo($container);
