@@ -4,11 +4,9 @@ class BarController < ApplicationController
   layout "bar"
   
   def index
-    puts params.inspect
     @blinkmark_url = params[:url]
     @blinkmark_title = params[:title]
     @blinkmark = current_user.blinkmarks.find_by_url(params[:url])
-    puts @blinkmark.inspect
   end
   
   def add
@@ -101,7 +99,7 @@ class BarController < ApplicationController
     response.headers["Pragma"] = "no-cache"
     # HTTP 1.1 'pre-check=0, post-check=0' (IE specific)
     response.headers["Cache-Control"] = 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0'
-    response.headers['Content-type'] = 'text/javascript; charset=utf-8'
+    response.headers['Content-type'] = 'application/javascript; charset=utf-8'
     render :action => 'external', :layout => false
   end
   
