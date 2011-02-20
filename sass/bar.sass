@@ -4,10 +4,18 @@
 
 a
 	color: $link_color
-	
+
 input[type="text"]
+	color: $lite_color
+	&:focus
+		color: #000
+
+.tags
+	width: 200px
+	
+.tags, .search
 	padding-right: 16px
-	&focus
+	&:focus
 		border-color: $link_color
 		
 input.loading
@@ -18,41 +26,40 @@ input.loading
 	font-family: arial, sans-serif
 	padding-top: 2px
 
-.barinput
-	float: left
-	
 .button
-	@include fancy-button(#eaeaea, 12pt, 5px, 1px)
-	float: left
+	@include fancy-button(#eaeaea, 9pt, 5px, 1px)
+	position: relative
+	bottom: 1px
+	
+.rm_10
+	margin-right: 10px
 	
 .logo
-	float: left
 	position: relative
 	bottom: 6px
-
+	
 .add, .remove
-	float: left
 	padding: 0 10px 0 10px
 	
+.notice, .alert
+	position: relative
+	top: 2px
+	
 .alert
-	display: none
-
-.notice
-	display: none
+	color: $alert_color
 	
+.new_account
+	position: relative
+	top: 2px
 	
-.tag_form
-	float: left
-
-.tags
-	float: left
-
-.search_form
-	float: right
-.search
-	float: right
+#error_explanation
+	h2
+		display: none
+	ul
+		li
+			float: left
+			padding-left: 5px
+			position: relative
+			top: 2px
+			color: $alert_color
 	
-#tag_container
-	float: left
-	span
-		float: left

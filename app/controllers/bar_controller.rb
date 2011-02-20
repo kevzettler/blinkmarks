@@ -78,9 +78,6 @@ class BarController < ApplicationController
     @query = params[:query]
     #@results = current_user.blinkmarks.all(:conditions =>{'$where' => 'function(){ return this.title.match(/^'+@query+'/i) || this.url.match(/^'+@query+'/i)}'})
     @results = current_user.blinkmarks.search(@query).all
-    
-    puts "OMG SEARFING ___________"
-    
     puts @results.inspect
     
     respond_to do |format|
@@ -93,14 +90,15 @@ class BarController < ApplicationController
   end
   
   def external
-    response.headers["Last-Modified"] = Time.now.httpdate.to_s
-    response.headers["Expires"] = 0.to_s
-    # HTTP 1.0
-    response.headers["Pragma"] = "no-cache"
-    # HTTP 1.1 'pre-check=0, post-check=0' (IE specific)
-    response.headers["Cache-Control"] = 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0'
-    response.headers['Content-type'] = 'application/javascript; charset=utf-8'
-    
+
+    # response.headers["Last-Modified"] = Time.now.httpdate.to_s
+    # response.headers["Expires"] = 0.to_s
+    # # HTTP 1.0
+    # response.headers["Pragma"] = "no-cache"
+    # # HTTP 1.1 'pre-check=0, post-check=0' (IE specific)
+    # response.headers["Cache-Control"] = 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0'
+    # response.headers['Content-type'] = 'application/javascript; charset=utf-8'
+    # 
     render :text => ExternalJS.cache, :layout => false
   end
   

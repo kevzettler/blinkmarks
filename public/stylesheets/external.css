@@ -78,6 +78,16 @@ table.blinkmarks, .blinkmarks table {
   border: none;
 }
 
+/* line 5, ../../sass/_shared.sass */
+.l {
+  float: left;
+}
+
+/* line 8, ../../sass/_shared.sass */
+.r {
+  float: right;
+}
+
 /* line 4, ../../sass/external.sass */
 #easyXDM_default0_provider {
   float: left;

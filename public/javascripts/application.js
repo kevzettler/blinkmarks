@@ -130,7 +130,7 @@ function typeAheadCall(e){
 				var i;
 				for(i=0; i<data.length; i++){
 					var tag = data[i].replace(/^\s+|\s+$/g, '')
-							,$tag = $('<span style="display:none;"><input type="checkbox" name="tags" checked="checked" id="'+tag+'_tag" /><label>'+tag+'</label></span>')
+							,$tag = $('<span style="display:none;" class="l tag"><input type="checkbox" name="tags" checked="checked" id="'+tag+'_tag" /><label>'+tag+'</label></span>')
 							;
 					$tag.appendTo($container);
 					$tag.fadeIn('slow');

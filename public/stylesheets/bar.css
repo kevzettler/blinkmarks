@@ -82,6 +82,16 @@ a img {
   outline: none;
 }
 
+/* line 5, ../../sass/_shared.sass */
+.l {
+  float: left;
+}
+
+/* line 8, ../../sass/_shared.sass */
+.r {
+  float: right;
+}
+
 /* line 5, ../../sass/bar.sass */
 a {
   color: #36a9e1;
@@ -89,31 +99,40 @@ a {
 
 /* line 8, ../../sass/bar.sass */
 input[type="text"] {
-  padding-right: 16px;
+  color: #c6c6c6;
 }
 /* line 10, ../../sass/bar.sass */
-input[type="text"]focus {
-  border-color: #36a9e1;
+input[type="text"]:focus {
+  color: black;
 }
 
 /* line 13, ../../sass/bar.sass */
+.tags {
+  width: 200px;
+}
+
+/* line 16, ../../sass/bar.sass */
+.tags, .search {
+  padding-right: 16px;
+}
+/* line 18, ../../sass/bar.sass */
+.tags:focus, .search:focus {
+  border-color: #36a9e1;
+}
+
+/* line 21, ../../sass/bar.sass */
 input.loading {
   background: url("/images/ajax-loader.gif") no-repeat center right;
 }
 
-/* line 16, ../../sass/bar.sass */
+/* line 24, ../../sass/bar.sass */
 .blinkmarkbar {
   background: white;
   font-family: arial, sans-serif;
   padding-top: 2px;
 }
 
-/* line 21, ../../sass/bar.sass */
-.barinput {
-  float: left;
-}
-
-/* line 24, ../../sass/bar.sass */
+/* line 29, ../../sass/bar.sass */
 .button {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -121,7 +140,7 @@ input.loading {
   -ms-border-radius: 5px;
   -khtml-border-radius: 5px;
   border-radius: 5px;
-  font-size: 12pt;
+  font-size: 9pt;
   line-height: 1.2em;
   padding: 0.3em 1em;
   border-width: 1px;
@@ -141,7 +160,8 @@ input.loading {
   -ms-background-clip: padding-box;
   -khtml-background-clip: padding-box;
   background-clip: padding-box;
-  float: left;
+  position: relative;
+  bottom: 1px;
 }
 /* line 120, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
 .button, .button:visited {
@@ -178,54 +198,48 @@ input.loading {
   color: #222222;
 }
 
-/* line 28, ../../sass/bar.sass */
+/* line 34, ../../sass/bar.sass */
+.rm_10 {
+  margin-right: 10px;
+}
+
+/* line 37, ../../sass/bar.sass */
 .logo {
-  float: left;
   position: relative;
   bottom: 6px;
 }
 
-/* line 33, ../../sass/bar.sass */
+/* line 41, ../../sass/bar.sass */
 .add, .remove {
-  float: left;
   padding: 0 10px 0 10px;
 }
 
-/* line 37, ../../sass/bar.sass */
-.alert {
-  display: none;
-}
-
-/* line 40, ../../sass/bar.sass */
-.notice {
-  display: none;
-}
-
 /* line 44, ../../sass/bar.sass */
-.tag_form {
-  float: left;
+.notice, .alert {
+  position: relative;
+  top: 2px;
 }
 
-/* line 47, ../../sass/bar.sass */
-.tags {
-  float: left;
+/* line 48, ../../sass/bar.sass */
+.alert {
+  color: #e64e5f;
 }
 
-/* line 50, ../../sass/bar.sass */
-.search_form {
-  float: right;
+/* line 51, ../../sass/bar.sass */
+.new_account {
+  position: relative;
+  top: 2px;
 }
 
-/* line 52, ../../sass/bar.sass */
-.search {
-  float: right;
+/* line 56, ../../sass/bar.sass */
+#error_explanation h2 {
+  display: none;
 }
-
-/* line 55, ../../sass/bar.sass */
-#tag_container {
+/* line 59, ../../sass/bar.sass */
+#error_explanation ul li {
   float: left;
-}
-/* line 57, ../../sass/bar.sass */
-#tag_container span {
-  float: left;
+  padding-left: 5px;
+  position: relative;
+  top: 2px;
+  color: #e64e5f;
 }
