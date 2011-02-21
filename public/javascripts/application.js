@@ -1,7 +1,11 @@
 if(typeof window.console !== 'object'){
 	window.console = {log: function(){return false;}};
 }
+
 (function (){
+	var rpc = window.parent.rpc;
+	
+	
 function addClick(){
 	var $this = $(this);
 
@@ -162,8 +166,6 @@ function tagRemoveClick(){
 
 $(document).ready(function(){
 	console.log("dom ready exectued");
-	
-	var rpc = window.parent.rpc;
 	$('.autobox').autobox();
 	// $('#tag_container').jcarousel({
 	// 	buttonNextHTML: "<div>&gt;</div>",
