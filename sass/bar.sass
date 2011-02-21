@@ -2,6 +2,8 @@
 @import "fancy-buttons"
 @import "shared"
 
+@import "jquery/jquery.jcarousel"
+
 a
 	color: $link_color
 
@@ -10,10 +12,10 @@ input[type="text"]
 	&:focus
 		color: #000
 
-.tags
+.tags_input
 	width: 200px
 	
-.tags, .search
+.tags_input, .search_input
 	padding-right: 16px
 	&:focus
 		border-color: $link_color
@@ -52,6 +54,12 @@ input.loading
 	position: relative
 	top: 2px
 	
+#tag_container
+	display: block
+	width: 474px
+	height: 20px
+	overflow-y: hidden
+	
 #error_explanation
 	h2
 		display: none
@@ -62,4 +70,19 @@ input.loading
 			position: relative
 			top: 2px
 			color: $alert_color
+			
+
+.jcarousel-skin-tango
+	float: left
+		
+.jcarousel-skin-tango .jcarousel-container
+	padding: 0px 30px 0 30px
+	border: none
+	background: #FFF
+
+.jcarousel-skin-tango .jcarousel-clip-horizontal
+	height: auto !important
+			
+.jcarousel-prev, .jcarousel-next
+	top: 0px !important
 	

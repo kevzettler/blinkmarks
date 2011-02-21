@@ -31,12 +31,8 @@ class BarController < ApplicationController
     blinkmark = current_user.blinkmarks.find_by_url(params[:url])
     new_tags = tags - blinkmark.tags
     blinkmark.tags.concat(tags)
-    puts "tags before uniq"
-    puts blinkmark.tags.inspect
     blinkmark.tags = blinkmark.tags.uniq
-    puts "tags after uniq"
-    puts blinkmark.tags.inspect
-    
+
     respond_to do |format|
       if blinkmark.save
           format.html{redirect_to "/bar?url=" + URI.escape(params[:url]) +"&title=" + URI.escape(params[:title])}

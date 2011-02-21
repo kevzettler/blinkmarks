@@ -5,16 +5,16 @@
 <% end %>
 
 <form method="post" action="bar/tag" class="l tag_form" <% if @blinkmark.nil?%> style="display:none;" <% end %>>
-	<input type="text" class="l autobox tags" value="Add tags seperated by commas" />
-	<div id="tag_container" class="l">
+	<input type="text" class="l autobox tags_input" value="Add tags seperated by commas" />
+	<ul id="tag_container" class="l jcarousel-skin-tango">
 	<% unless @blinkmark.nil? 
 			@blinkmark.tags.each do |t| %>
-		<span class="l tag"><input type="checkbox" checked="checked" name="tags" id="<%= t%>_tag"/><label for="<%= t %>_tag"><%= t %></label></span>
+		<li class="l tag"><input type="checkbox" checked="checked" name="tags" id="<%= t%>_tag"/><label for="<%= t %>_tag"><%= t %></label></li>
 	<% end 
 	end %>
-	</div>
+	</ul>
 </form>
 
 <form method="post" action="/bar/search" class="r search_form">
-	<input type="text" class="r autobox search" id="search_input" value="Search by, tags or title" autocomplete="off"/>
+	<input type="text" class="r autobox search_input" id="search_input" value="Search by, tags or title" autocomplete="off"/>
 </form>

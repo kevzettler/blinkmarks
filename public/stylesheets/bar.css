@@ -92,47 +92,225 @@ a img {
   float: right;
 }
 
-/* line 5, ../../sass/bar.sass */
+/* line 2, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-container {
+  -moz-border-radius: 10px;
+  background: #f0f6f9;
+  border: 1px solid #346f97;
+}
+/* line 6, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-direction-rtl {
+  direction: rtl;
+}
+/* line 8, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-container-horizontal {
+  width: 245px;
+  padding: 20px 40px;
+}
+/* line 11, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-container-vertical {
+  width: 75px;
+  height: 245px;
+  padding: 40px 20px;
+}
+/* line 15, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-clip-horizontal {
+  width: 245px;
+  height: 75px;
+}
+/* line 18, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-clip-vertical {
+  width: 75px;
+  height: 245px;
+}
+/* line 21, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-item {
+  width: 75px;
+  height: 75px;
+}
+/* line 24, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-item-horizontal {
+  margin-left: 0;
+  margin-right: 10px;
+}
+/* line 27, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-direction-rtl .jcarousel-item-horizontal {
+  margin-left: 10px;
+  margin-right: 0;
+}
+/* line 30, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-item-vertical {
+  margin-bottom: 10px;
+}
+/* line 32, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-item-placeholder {
+  background: white;
+  color: black;
+}
+/* line 35, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-next-horizontal {
+  position: absolute;
+  top: 43px;
+  right: 5px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+/* line 42, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-direction-rtl .jcarousel-next-horizontal {
+  left: 5px;
+  right: auto;
+}
+/* line 46, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-next-horizontal:hover {
+  background-position: -32px 0;
+}
+/* line 48, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-next-horizontal:active {
+  background-position: -64px 0;
+}
+/* line 50, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-next-disabled-horizontal {
+  cursor: default;
+  background-position: -96px 0;
+}
+/* line 53, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-next-disabled-horizontal:hover, .jcarousel-skin-tango .jcarousel-next-disabled-horizontal:active {
+  cursor: default;
+  background-position: -96px 0;
+}
+/* line 56, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-prev-horizontal {
+  position: absolute;
+  top: 43px;
+  left: 5px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+/* line 63, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-direction-rtl .jcarousel-prev-horizontal {
+  left: auto;
+  right: 5px;
+}
+/* line 67, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-prev-horizontal:hover {
+  background-position: -32px 0;
+}
+/* line 69, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-prev-horizontal:active {
+  background-position: -64px 0;
+}
+/* line 71, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-prev-disabled-horizontal {
+  cursor: default;
+  background-position: -96px 0;
+}
+/* line 74, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-prev-disabled-horizontal:hover, .jcarousel-skin-tango .jcarousel-prev-disabled-horizontal:active {
+  cursor: default;
+  background-position: -96px 0;
+}
+/* line 77, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-next-vertical {
+  position: absolute;
+  bottom: 5px;
+  left: 43px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+/* line 84, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-next-vertical:hover {
+  background-position: 0 -32px;
+}
+/* line 86, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-next-vertical:active {
+  background-position: 0 -64px;
+}
+/* line 88, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-next-disabled-vertical {
+  cursor: default;
+  background-position: 0 -96px;
+}
+/* line 91, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-next-disabled-vertical:hover, .jcarousel-skin-tango .jcarousel-next-disabled-vertical:active {
+  cursor: default;
+  background-position: 0 -96px;
+}
+/* line 94, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-prev-vertical {
+  position: absolute;
+  top: 5px;
+  left: 43px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+/* line 101, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-prev-vertical:hover {
+  background-position: 0 -32px;
+}
+/* line 103, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-prev-vertical:active {
+  background-position: 0 -64px;
+}
+/* line 105, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-prev-disabled-vertical {
+  cursor: default;
+  background-position: 0 -96px;
+}
+/* line 108, ../../sass/jquery/_jquery.jcarousel.sass */
+.jcarousel-skin-tango .jcarousel-prev-disabled-vertical:hover, .jcarousel-skin-tango .jcarousel-prev-disabled-vertical:active {
+  cursor: default;
+  background-position: 0 -96px;
+}
+
+/*
+ *  Horizontal Buttons */
+/*
+ *  Vertical Buttons */
+/* line 7, ../../sass/bar.sass */
 a {
   color: #36a9e1;
 }
 
-/* line 8, ../../sass/bar.sass */
+/* line 10, ../../sass/bar.sass */
 input[type="text"] {
   color: #c6c6c6;
 }
-/* line 10, ../../sass/bar.sass */
+/* line 12, ../../sass/bar.sass */
 input[type="text"]:focus {
   color: black;
 }
 
-/* line 13, ../../sass/bar.sass */
-.tags {
+/* line 15, ../../sass/bar.sass */
+.tags_input {
   width: 200px;
 }
 
-/* line 16, ../../sass/bar.sass */
-.tags, .search {
+/* line 18, ../../sass/bar.sass */
+.tags_input, .search_input {
   padding-right: 16px;
 }
-/* line 18, ../../sass/bar.sass */
-.tags:focus, .search:focus {
+/* line 20, ../../sass/bar.sass */
+.tags_input:focus, .search_input:focus {
   border-color: #36a9e1;
 }
 
-/* line 21, ../../sass/bar.sass */
+/* line 23, ../../sass/bar.sass */
 input.loading {
   background: url("/images/ajax-loader.gif") no-repeat center right;
 }
 
-/* line 24, ../../sass/bar.sass */
+/* line 26, ../../sass/bar.sass */
 .blinkmarkbar {
   background: white;
   font-family: arial, sans-serif;
   padding-top: 2px;
 }
 
-/* line 29, ../../sass/bar.sass */
+/* line 31, ../../sass/bar.sass */
 .button {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -198,48 +376,78 @@ input.loading {
   color: #222222;
 }
 
-/* line 34, ../../sass/bar.sass */
+/* line 36, ../../sass/bar.sass */
 .rm_10 {
   margin-right: 10px;
 }
 
-/* line 37, ../../sass/bar.sass */
+/* line 39, ../../sass/bar.sass */
 .logo {
   position: relative;
   bottom: 6px;
 }
 
-/* line 41, ../../sass/bar.sass */
+/* line 43, ../../sass/bar.sass */
 .add, .remove {
   padding: 0 10px 0 10px;
 }
 
-/* line 44, ../../sass/bar.sass */
+/* line 46, ../../sass/bar.sass */
 .notice, .alert {
   position: relative;
   top: 2px;
 }
 
-/* line 48, ../../sass/bar.sass */
+/* line 50, ../../sass/bar.sass */
 .alert {
   color: #e64e5f;
 }
 
-/* line 51, ../../sass/bar.sass */
+/* line 53, ../../sass/bar.sass */
 .new_account {
   position: relative;
   top: 2px;
 }
 
-/* line 56, ../../sass/bar.sass */
+/* line 57, ../../sass/bar.sass */
+#tag_container {
+  display: block;
+  width: 474px;
+  height: 20px;
+  overflow-y: hidden;
+}
+
+/* line 64, ../../sass/bar.sass */
 #error_explanation h2 {
   display: none;
 }
-/* line 59, ../../sass/bar.sass */
+/* line 67, ../../sass/bar.sass */
 #error_explanation ul li {
   float: left;
   padding-left: 5px;
   position: relative;
   top: 2px;
   color: #e64e5f;
+}
+
+/* line 75, ../../sass/bar.sass */
+.jcarousel-skin-tango {
+  float: left;
+}
+
+/* line 78, ../../sass/bar.sass */
+.jcarousel-skin-tango .jcarousel-container {
+  padding: 0px 30px 0 30px;
+  border: none;
+  background: white;
+}
+
+/* line 83, ../../sass/bar.sass */
+.jcarousel-skin-tango .jcarousel-clip-horizontal {
+  height: auto !important;
+}
+
+/* line 86, ../../sass/bar.sass */
+.jcarousel-prev, .jcarousel-next {
+  top: 0px !important;
 }
