@@ -8,7 +8,7 @@ class ExternalJS
         root_url = "http://localhost:3000/"
       else
         easyXDM = 'easyXDM.min.js'
-        root_url = "http://localhost:3000/"
+        root_url = "http://www.blinkmarks.com/"
       end
       
       binding
