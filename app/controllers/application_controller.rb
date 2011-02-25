@@ -4,12 +4,14 @@ class ApplicationController < ActionController::Base
   layout :layout_by_resource
   
   def index
-    render :action => 'index', :layout => false
+    render :action => 'index'
   end
   
   def layout_by_resource
-      if devise_controller? or bar_controller?
+      if devise_controller?
         "bar"
-    end
+      else
+        controller_name
+      end
   end
 end

@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset=utf-8 />
-	<title>cloud bookmarks | blinkmarks.com</title>
-	<!--[if IE]>
-		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-</head>
-<body>
-	<h1>The best way to bookmark the web!</h1>
-	<a href="<%= bookmarklet %>" title="BlinkMarks bookmarklet">BlinkMarks <%= RAILS_ENV %></a>
-	<p>Drag the link above to your bookmark bar, or add to your bookmarks folder.</p>
-	<cite>Bookmark any page, from anywhere!</cite>
-</body>
-</html>
+<%= link_to(image_tag('bar_logo.png', :alt=> "blinkmarks.com"), root_url)%>
+<h1>The best way to bookmark the web!</h1>
+<a href="<%= bookmarklet %>" class="button bookmarklet" title="BlinkMarks bookmarklet">BlinkMarks <%= RAILS_ENV %></a>
+<p>Click and drag the button above on to your browsers bookmark bar, or add to your bookmarks folder.</p>
+<cite>Bookmark any page, from anywhere!</cite>

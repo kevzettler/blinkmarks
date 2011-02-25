@@ -1,7 +1,3 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 /* line 14, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -64,7 +60,7 @@ a img {
 
 /* incase an inverted custom gradient isn't specified */
 /* line 176, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
-.fancy-button-reset-base-class {
+.fancy-button-reset-base-class, .bookmarklet {
   font-family: "Lucida Grande", Lucida, Arial, sans-serif;
   background: url('/public/images/button_bg.png?1293418382') repeat-x bottom left;
   margin: 0;
@@ -77,11 +73,85 @@ a img {
   font-weight: bold;
 }
 /* line 165, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
-.fancy-button-reset-base-class::-moz-focus-inner {
+.fancy-button-reset-base-class::-moz-focus-inner, .bookmarklet::-moz-focus-inner {
   border: none;
   padding: 0;
 }
 /* line 168, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
-.fancy-button-reset-base-class:focus {
+.fancy-button-reset-base-class:focus, .bookmarklet:focus {
   outline: none;
+}
+
+/* line 5, ../../sass/_shared.sass */
+.l {
+  float: left;
+}
+
+/* line 8, ../../sass/_shared.sass */
+.r {
+  float: right;
+}
+
+/* line 5, ../../sass/screen.sass */
+.bookmarklet {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  font-size: 16pt;
+  line-height: 1.2em;
+  padding: 0.3em 1em;
+  border-width: 1px;
+  background-color: white;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(10%, #ffffff), color-stop(50%, #e2e2e2), color-stop(50%, #dbdbdb), color-stop(100%, #f4f4f4));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 10%, #e2e2e2 50%, #dbdbdb 50%, #f4f4f4 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #ffffff 10%, #e2e2e2 50%, #dbdbdb 50%, #f4f4f4 100%);
+  border-color: #c4c4c4;
+  text-shadow: white 0px 1px 1px;
+  -moz-box-shadow: rgba(255, 255, 255, 0.918) 0 0 0.1em 1px inset;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.918) 0 0 0.1em 1px inset;
+  -o-box-shadow: rgba(255, 255, 255, 0.918) 0 0 0.1em 1px inset;
+  box-shadow: rgba(255, 255, 255, 0.918) 0 0 0.1em 1px inset;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding;
+  -o-background-clip: padding-box;
+  -ms-background-clip: padding-box;
+  -khtml-background-clip: padding-box;
+  background-clip: padding-box;
+}
+/* line 120, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
+.bookmarklet, .bookmarklet:visited {
+  color: #222222;
+}
+/* line 31, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
+.bookmarklet:hover, .bookmarklet:focus {
+  background-color: white;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(10%, #ffffff), color-stop(50%, #dbdbdb), color-stop(50%, #d3d3d3), color-stop(100%, #ededed));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 10%, #dbdbdb 50%, #d3d3d3 50%, #ededed 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #ffffff 10%, #dbdbdb 50%, #d3d3d3 50%, #ededed 100%);
+  border-color: #bcbcbc;
+  text-shadow: white 0px 1px 1px;
+}
+/* line 120, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
+.bookmarklet:hover, .bookmarklet:hover:visited, .bookmarklet:focus, .bookmarklet:focus:visited {
+  color: #222222;
+}
+/* line 36, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
+.bookmarklet:active {
+  background-color: white;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #dbdbdb), color-stop(30%, #e0e0e0), color-stop(50%, #d6d6d6), color-stop(50%, #cecece), color-stop(100%, #efefef));
+  background-image: -moz-linear-gradient(top, #dbdbdb 0%, #e0e0e0 30%, #d6d6d6 50%, #cecece 50%, #efefef 100%);
+  background-image: linear-gradient(top, #dbdbdb 0%, #e0e0e0 30%, #d6d6d6 50%, #cecece 50%, #efefef 100%);
+  border-color: #b4b4b4;
+  text-shadow: white 0px -1px -1px;
+  -moz-box-shadow: #c4c4c4 0 0.08em 0.1em 1px inset;
+  -webkit-box-shadow: #c4c4c4 0 0.08em 0.1em 1px inset;
+  -o-box-shadow: #c4c4c4 0 0.08em 0.1em 1px inset;
+  box-shadow: #c4c4c4 0 0.08em 0.1em 1px inset;
+}
+/* line 120, ../../../../../../../Library/Ruby/Gems/1.8/gems/fancy-buttons-1.0.4/lib/stylesheets/_fancy-buttons.sass */
+.bookmarklet:active, .bookmarklet:active:visited {
+  color: #222222;
 }
