@@ -20,6 +20,7 @@ class BarController < ApplicationController
        format.html{redirect_to "/bar?url=" + URI.escape(params[:url]) +"&title=" + URI.escape(params[:title])}
        format.json{render :json => current_user.blinkmarks, :status => :created}
       else
+       puts current_user.errors
        format.json{render :json => current_user.errors, :status => :unprocessable_entity}
       end
     end
