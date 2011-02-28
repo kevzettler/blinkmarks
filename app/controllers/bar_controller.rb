@@ -16,7 +16,7 @@ class BarController < ApplicationController
     })
     
     respond_to do |format|
-      if current_user.save
+      if current_user.blinkmarks.save
        format.html{redirect_to "/bar?url=" + URI.escape(params[:url]) +"&title=" + URI.escape(params[:title])}
        format.json{render :json => current_user.blinkmarks, :status => :created}
       else
