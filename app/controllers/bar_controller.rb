@@ -10,17 +10,17 @@ class BarController < ApplicationController
   end
   
   def add
-    current_user.blinkmarks << Blinkmark.new({
+    blinkmark = Blinkmark.new({
+      :user_id => current_user.id,
       :url => params[:url],
       :title => params[:title]
     })
     
     respond_to do |format|
-      if current_user.blinkmarks.save
+      if blinkmark.save
        format.html{redirect_to "/bar?url=" + URI.escape(params[:url]) +"&title=" + URI.escape(params[:title])}
        format.json{render :json => current_user.blinkmarks, :status => :created}
       else
-       puts current_user.errors
        format.json{render :json => current_user.errors, :status => :unprocessable_entity}
       end
     end
