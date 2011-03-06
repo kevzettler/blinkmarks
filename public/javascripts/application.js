@@ -10,7 +10,7 @@ function addClick(){
 	var $this = $(this);
 
 	$.ajax({
-		url: "/bar/add",
+		url: "/blinkmarks/create",
 		type: "post",
 		data: {
 			url : window.name.split("||")[0],
@@ -33,7 +33,7 @@ function addClick(){
 function removeClick(){
 	var $this = $(this);
 	$.ajax({
-		url : "/bar/remove",
+		url : "/blinkmarks/delete",
 		type: "post",
 		data: {
 			url: window.name.split("||")[0],
@@ -60,7 +60,7 @@ function typeAheadCall(e){
 	var $this = $(this);
 	$this.addClass('loading');
 	$.ajax({
-		url: "/bar/search",
+		url: "/blinkmarks/search",
 		type: "post",
 		data: {
 			query: $this.val()
@@ -117,7 +117,7 @@ function tagSubmit(event){
 			,tags = $input.val().split(',')
 			;
 	$.ajax({
-		url : "/bar/tag",
+		url : "/blinkmarks/add_tag",
 		type: "post",
 		data: {
 			url: window.name.split("||")[0]
@@ -146,7 +146,7 @@ function tagRemoveClick(){
 			,$label = $this.next()
 			;
 	$.ajax({
-		url : "/bar/remove_tag",
+		url : "/blinkmarks/remove_tag",
 		type: "post",
 		data: {
 			url: window.name.split("||")[0]
