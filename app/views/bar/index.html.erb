@@ -1,7 +1,7 @@
 <% if @blinkmark.nil? %>
-	<a href="/bar/add?title=<%= @blinkmark_title %>&amp;url=<%= @blinkmark_url %>" class="l add" >Add to bookmarks</a>
+	<a href="/bar/add?title=<%= @blinkmark_title %>&amp;url=<%= @blinkmark_url %>" class="l add" >Add to blinkmarks</a>
 <% else %>
-	<a href="remove?title=<%= @blinkmark_title %>&amp;url=<%= @blinkmark_url %>" class="l remove">Remove from bookmarks</a>
+	<a href="remove?title=<%= @blinkmark_title %>&amp;url=<%= @blinkmark_url %>" class="l remove">Remove from blinkmarks</a>
 <% end %>
 
 <form method="post" action="bar/tag" class="l tag_form" <% if @blinkmark.nil?%> style="display:none;" <% end %>>

@@ -181,18 +181,16 @@ var blinkmarks = function(){
 		if(typeof jQuery == "undefined" || !jQuery ||
 		   typeof easyXDM == "undefined" || !easyXDM ||
 		   typeof JSON == "undefined" || !JSON){
-			return;
+			return false;;
 		}
-		
-
-		buildBar();
+	  buildBar();
 	}
 	
 	//If there is no jquery on the page load the latest
 	if(typeof jQuery == 'undefined' || !jQuery){
 		var s=document.createElement('script');
 		s.setAttribute('type', "text/javascript");
-		s.setAttribute('src','http://jquery.com/src/jquery-latest.js');
+		s.setAttribute('src','https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
 		head.appendChild(s);
 		s.onload = scriptOnLoad;
 		s.onreadystatechange = function () {
@@ -219,17 +217,17 @@ var blinkmarks = function(){
 	
 	//I think easyXDM needs JSON
 	if (typeof JSON === "undefined" || !JSON) {
-        s2 = document.createElement("script");
-        s2.type = "text/javascript";
-        s2.src = REMOTE + "javascripts/easyXDM-2.4.9.102/json2.js";
-		s2.onload = scriptOnLoad;
-        s2.onreadystatechange = function(){
+          s2 = document.createElement("script");
+          s2.type = "text/javascript";
+          s2.src = REMOTE + "javascripts/easyXDM-2.4.9.102/json2.js";
+	  s2.onload = scriptOnLoad;
+          s2.onreadystatechange = function(){
             if (this.readyState === "complete" || this.readyState === "loaded") {
-                scriptOnLoad();
+              scriptOnLoad();
             }
-        };
-        head.appendChild(s2);
-    }
+          };
+          head.appendChild(s2);
+        }
 	
 			
 	//public api
