@@ -1,244 +1,330 @@
 var blinkmarks = function(){
-	if(typeof window.console != 'object'){
-		window.console = {log: function(){return false;}};
-	}
+  if(typeof window.console != 'object'){
+    window.console = {log: function(){return false;}};
+  }
+  
+  var REMOTE = "<%= root_url %>"
+  ,head = document.getElementsByTagName('head')[0]
+  ,deps = 0
+  ,finished_deps = 0
+  ,bar_built = false
+  ,rpc = null
+  ,api_inaction = false
+  ,all_deps = false
+  ,async_log = []
+  ,returned_api = {}
+  ,rpc_api = {
+    local: {
+      buildList: buildList,
+      nextAutoSuggest : nextAutoSuggest,
+      prevAutoSuggest : prevAutoSuggest,
+      getSelected : getSelected
+    }
+  }
+  ,true_api = {
+    buildBar: buildBar
+  };
+  ;
 	
-	var REMOTE = "<%= root_url %>"
-		,head = document.getElementsByTagName('head')[0]
-		,deps = 0
-		,finished_deps = 0
-		,bar_built = false
-		,rpc = null
-		;
-	
-	//Function for building the bar	
-	function buildBar(){
-		var $ = jQuery.noConflict()
-				,$existing_bar = jQuery('div.blinkmarks.container')
-				;
-				
-		//remove the bar if its already rendered		
-		if($existing_bar.length > 0 && $existing_bar.is(":visible")){
-			$('.blinkmarks').fadeOut('fast');
-//			$existing_bar.slideUp('fast');
-			return false;
-		}else if($existing_bar.length > 0 && $existing_bar.is(":not(:visible)")){
-			$existing_bar.slideDown('fast').find('*').fadeIn('fast');
-			return false;
-		}
-		
-		if(bar_built === false){
-			var $barDiv = $('<div class="blinkmarks container"></div>')
-				,$closeBtn = $('<a href="#">X</a>')
-				;	
-			
-			$barDiv.css({
-				width: '100%',
-				height: '30px',
-				'background-color': 'transparent',
-				'background-image': "url("+REMOTE+"images/bar_back.png)",
-				'background-repeat': 'repeat-x',
-				border: 'none',
-				margin: '0',
-				position: 'fixed',
-				'padding': "5px 0",
-				top: "0px",
-				left: "0px",
-				display: 'none',
-				'z-index': "999999"
-			});
-		
+  function closeButtonClick(){
+    $('.blinkmarks').fadeOut('fast');
+    return false;
+  }
 
-			$closeBtn.css({
-				float: 'right',
-				"padding-right": "10px",
-				"font-size": "18px",
-				"padding-top": "5px"
-			}).attr("title", "click to close blinkmarks");
-			
-			$closeBtn.click(function(){
-				$('.blinkmarks').fadeOut('fast');
-				return false;
-			});
-		
-			//add a small style sheet to the host head. because easyxdm won't let us set the styles of the iframe it generates
-			//$(head).append("<style type=\"text/css\">#easyXDM_default0_provider{ float: left;}</style>");
-			$(head).append('<link media="screen" type="text/css" href="'+REMOTE+'stylesheets/external.css" rel="stylesheet">');
-			$barDiv.append($closeBtn);
-			$('body').prepend($barDiv);
-		
-		
-			rpc = new easyXDM.Rpc({
-			    remote: REMOTE+"/frame?url="+encodeURIComponent(window.location.href)+"&title="+encodeURIComponent(window.document.title), // the path to the provider
-					container: $barDiv.get(0),
-					props : {
-						name : window.location.href+"||"+window.document.title,
-						width : '96%',
-						height : '30px',
-						scrolling : 'no',
-						frameborder : '0',
-						id : "frame",
-						className: "blinkmarks",
-						style: {
-							float: "left",
-							width: "96%",
-							"padding-left" : "10px"
-						}
-					}
-			}, 
-			{
-			    local: {
-							buildList : function(results_array, successFn, errorFn){									
-								var $linkList = $("ul.blinkmarks.search_list");
-																	
-								if($linkList.length === 0){
-									$linkList = $("<ul class='blinkmarks search_list'></ul>").prependTo('body');
-								}
-																	
-								$linkList.empty();
-																	
-								if(results_array.length === 0){
-									$linkList.hide();
-								}else{
-									for(var i=0; i<results_array.length; i++){
-										$linkList.append('<li><a href="'+results_array[i].url+'">"'+results_array[i].title+'"</a></li>');
-									}
-									$linkList.show();
-								}
-							},
-							nextAutoSuggest : function(){
-								var $all = $('.blinkmarks.search_list li')
-										,$selected = $('.blinkmarks.search_list li.selected')
-										,index = $all.index($selected.get(0))
-										,total = $('.blinkmarks.search_list li').length
-										;
-										
-								console.log("moving to next", index, total, $selected, $all);
-						
-								if(total === 0){
-									return false;
-								}else{
-									if($selected.length === 0){
-										$('.blinkmarks.search_list li:first').addClass('selected');
-									}else if(index + 1 == total){
-										console.log("removing selected because we are at the end");
-										$selected.removeClass('selected');
-										$('.blinkmarks.search_list li:first').addClass('selected');
-									}else{
-										console.log("putting selected to the next");
-										$selected.removeClass('selected')
-										.next()
-										.addClass('selected')
-									}
-								}
-							},
-							prevAutoSuggest : function(){
-								var $all = $('.blinkmarks.search_list li')
-										,$selected = $('.blinkmarks.search_list li.selected')
-										,index = $all.index($selected.get(0))
-										,total = $all.length
-										;
-										
-								console.log($selected.get(), $all, index, index-1, total);
-								
-								if(total === 0){
-									return false;
-								}else{
-									if(index-1 < 0){
-										console.log("removing selected because we are at the end");
-										$selected.removeClass('selected');
-										$('.blinkmarks.search_list li:last').addClass('selected');
-									}else{
-										$selected.removeClass('selected')
-										.prev()
-										.addClass('selected')
-									}
-								}
-							},
-						 getSelected : function(){
-							$selected = $('.blinkmarks.search_list li.selected');
-							if($selected.length != 0){
-								window.location = $selected.find('a').attr('href');
-							}else{ 
-								return false;
-							}
-						}
-				}
-			});
-					
-			$barDiv.slideDown('fast', function(){ bar_built = true;});
-		}
+  function closeButtonStyle(){
+    return {
+      float: 'right',
+      "padding-right": "10px",
+      "font-size": "18px",
+      "padding-top": "5px"
+    };
+  }
+
+  function barDivStyle(){
+    return {
+	width: '100%',
+	height: '30px',
+	'background-color': 'transparent',
+	'background-image': "url("+REMOTE+"images/bar_back.png)",
+	'background-repeat': 'repeat-x',
+	border: 'none',
+	margin: '0',
+	position: 'fixed',
+	'padding': "5px 0",
+	top: "0px",
+	left: "0px",
+	display: 'none',
+	'z-index': "999999"
+      };
+  }
+
+  function buildList(results_array, successFn, errorFn){									
+    var $linkList = $("ul.blinkmarks.search_list");
+    
+    if($linkList.length === 0){
+      $linkList = $("<ul class='blinkmarks search_list'></ul>").prependTo('body');
+    }
+    
+    $linkList.empty();
+    
+    if(results_array.length === 0){
+      $linkList.hide();
+    }else{
+      for(var i=0; i<results_array.length; i++){
+	$linkList.append('<li><a href="'+results_array[i].url+'">"'+results_array[i].title+'"</a></li>');
+      }
+      $linkList.show();
+    }
+  }
+
+  function nextAutoSuggest(){
+    var $all = $('.blinkmarks.search_list li')
+    ,$selected = $('.blinkmarks.search_list li.selected')
+    ,index = $all.index($selected.get(0))
+    ,total = $('.blinkmarks.search_list li').length
+    ;
+    
+    console.log("moving to next", index, total, $selected, $all);
+    
+    if(total === 0){
+      return false;
+    }else{
+      if($selected.length === 0){
+	$('.blinkmarks.search_list li:first').addClass('selected');
+      }else if(index + 1 == total){
+	console.log("removing selected because we are at the end");
+	$selected.removeClass('selected');
+	$('.blinkmarks.search_list li:first').addClass('selected');
+      }else{
+	console.log("putting selected to the next");
+	$selected.removeClass('selected')
+	  .next()
+	  .addClass('selected')
+      }
+    }
+  }
+
+  function prevAutoSuggest(){
+    var $all = $('.blinkmarks.search_list li')
+    ,$selected = $('.blinkmarks.search_list li.selected')
+    ,index = $all.index($selected.get(0))
+    ,total = $all.length
+    ;
+    
+    console.log($selected.get(), $all, index, index-1, total);
+    
+    if(total === 0){
+      return false;
+    }else{
+      if(index-1 < 0){
+	console.log("removing selected because we are at the end");
+	$selected.removeClass('selected');
+	$('.blinkmarks.search_list li:last').addClass('selected');
+      }else{
+	$selected.removeClass('selected')
+	  .prev()
+	  .addClass('selected')
+      }
+    }
+  }
+
+  function getSelected(){
+    $selected = $('.blinkmarks.search_list li.selected');
+    if($selected.length != 0){
+      window.location = $selected.find('a').attr('href');
+    }else{ 
+      return false;
+    }
+  }
+
+
+  //Function for building the bar	
+  function buildBar(){
+    var $ = jQuery.noConflict()
+    ,$existing_bar = jQuery('div.blinkmarks.container')
+    ;
+    
+    //remove the bar if its already rendered		
+    if($existing_bar.length > 0 && $existing_bar.is(":visible")){
+      $('.blinkmarks').fadeOut('fast');
+      return false;
+    }else if($existing_bar.length > 0 && $existing_bar.is(":not(:visible)")){
+      $existing_bar.slideDown('fast').find('*').fadeIn('fast');
+      return false;
+    }
+    
+    if(bar_built === false){
+      var $barDiv = $('<div class="blinkmarks container"></div>')
+      ,$closeBtn = $('<a href="#">X</a>')
+      ;	
+      
+      $barDiv.css(barDivStyle());
+      $closeBtn.css(closeButtonStyle()).attr("title", "click to close blinkmarks");
+      $closeBtn.click(closeButtonClick);
+      
+      //add a small style sheet to the host head. because easyxdm won't let us set the styles of the iframe it generates
+      $(head).append('<link media="screen" type="text/css" href="'+REMOTE+'stylesheets/external.css" rel="stylesheet">');
+      $barDiv.append($closeBtn);
+      $('body').prepend($barDiv);
+      
+      
+      rpc = new easyXDM.Rpc({
+	remote: REMOTE+"/frame?url="+encodeURIComponent(window.location.href)+"&title="+encodeURIComponent(window.document.title), // the path to the provider
+	container: $barDiv.get(0),
+	props : {
+	  name : window.location.href+"||"+window.document.title,
+	  width : '96%',
+	  height : '30px',
+	  scrolling : 'no',
+	  frameborder : '0',
+	  id : "frame",
+	  className: "blinkmarks",
+	  style: {
+	    float: "left",
+	    width: "96%",
+	    "padding-left" : "10px"
+	  }
 	}
-	
-	
-	/*
-	*
-	* Lets load 3rd party dependencys from external domains!
-	*
-	*/	
-	function scriptOnLoad(){
-		console.log("script onload", typeof jQuery, typeof easyXDM, typeof JSON);
-		if(typeof jQuery == "undefined" || !jQuery ||
-		   typeof easyXDM == "undefined" || !easyXDM ||
-		   typeof JSON == "undefined" || !JSON){
-			return false;;
-		}
-	  buildBar();
-	}
-	
-	//If there is no jquery on the page load the latest
-	if(typeof jQuery == 'undefined' || !jQuery){
-		var s=document.createElement('script');
-		s.setAttribute('type', "text/javascript");
-		s.setAttribute('src','https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
-		head.appendChild(s);
-		s.onload = scriptOnLoad;
-		s.onreadystatechange = function () {
-			if (this.readyState == 'complete' || this.readyState == 'loaded'){
-				console.log('Jquery Loaded');
-				scriptOnLoad();
-			}
-		};
-	}
-	
-	//We need easyXDM to reach out of our frame 
-	if(typeof easyXDM === "undefined" || !easyXDM){
-		s1 = document.createElement("script");
-	    s1.type = "text/javascript";
-	    s1.src = REMOTE + "javascripts/easyXDM-2.4.9.102/<%= easyXDM %>";
-		s1.onload = scriptOnLoad;
-	    s1.onreadystatechange = function(){
-	        if (this.readyState === "complete" || this.readyState === "loaded") {
-	            scriptOnLoad();
-	        }
-	    };
-	    head.appendChild(s1);
-	}
-	
-	//I think easyXDM needs JSON
-	if (typeof JSON === "undefined" || !JSON) {
-          s2 = document.createElement("script");
-          s2.type = "text/javascript";
-          s2.src = REMOTE + "javascripts/easyXDM-2.4.9.102/json2.js";
-	  s2.onload = scriptOnLoad;
-          s2.onreadystatechange = function(){
-            if (this.readyState === "complete" || this.readyState === "loaded") {
-              scriptOnLoad();
-            }
-          };
-          head.appendChild(s2);
+      }, rpc_api);
+      
+      $barDiv.slideDown('fast', function(){ bar_built = true;});
+    }
+  }
+
+
+  function executeBackLog(){
+      /*
+       * iterate over our back logged calls from when the dummy api
+       * was in effect
+       */
+      if(api_inaction === false){
+	  api_inaction = true;
+	  var i;
+	  for(i = 0; i<async_log.length; i++){
+	      //call the method with given arguments
+	      true_api[async_log[i][0]].apply(true_api, async_log[i][1]);	      
+	  }
+	  async_log = [];
+      }
+  }
+   
+  function returnTrueApi(){
+    for(var value in true_api){
+      returned_api[value] = true_api[value];
+    }
+    executeBackLog();
+  }
+
+  /*
+   *
+   * Lets load 3rd party dependencys from external domains!
+   *
+   */	
+  function scriptOnLoad(){
+    if(typeof jQuery === "undefined" || !jQuery){
+      return;
+    }
+
+    if (typeof JSON === "undefined" || !JSON) {
+      return;
+    }
+
+    if(typeof easyXDM === "undefined" || !easyXDM){
+      return;
+    }
+
+    all_deps = true;
+    if(api_inaction === false){
+	returnTrueApi();
+    }	
+  }
+
+  function loadDepJs(dep_url, cb){
+    var s=document.createElement('script');
+    s.setAttribute('type', "text/javascript");
+    s.setAttribute('src', dep_url);
+    head.appendChild(s);
+    s.onload = function(){
+      if(typeof cb === 'function'){
+        cb();
+      }
+      scriptOnLoad();
+    };
+
+    s.onreadystatechange = function () {
+      if (this.readyState === 'complete' || this.readyState === 'loaded'){
+        if(typeof cb === 'function'){
+          cb();
         }
-	
-			
-	//public api
-	//return a function that acts as a future because we may still be waiting for asyc dependencies to load
-	return (function(){ 
-		if(typeof jQuery != 'undefined'){
-			return jQuery.extend(rpc, { 
-				buildBar : buildBar
-			});
-		}else{
-			return {buildBar : buildBar}
-		}
-	})();
+        scriptOnLoad();
+      }
+    };
+  }
+
+
+  function loadDepCss(dep_url){
+   var s=document.createElement('link');
+    s.setAttribute('type', "text/css");
+    s.setAttribute('media', 'screen');
+    s.setAttribute('rel', 'stylesheet');
+    s.setAttribute('href', dep_url);
+    head.appendChild(s);
+    s.onreadystatechange = function () {
+      if (this.readyState === 'complete' || this.readyState === 'loaded'){return;}
+    };
+  }
+
+  
+  //If there is no jquery on the page load the latest
+  if(typeof jQuery == 'undefined' || !jQuery){
+    var s=document.createElement('script');
+    s.setAttribute('type', "text/javascript");
+    s.setAttribute('src','https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
+    head.appendChild(s);
+    s.onload = scriptOnLoad;
+    s.onreadystatechange = function () {
+      if (this.readyState == 'complete' || this.readyState == 'loaded'){
+	console.log('Jquery Loaded');
+	scriptOnLoad();
+      }
+    };
+  }
+
+
+  if(typeof jQuery === 'undefined' || !jQuery){
+    loadDepJs('https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
+  } 
+
+  //I think easyXDM needs JSON
+  if (typeof JSON === "undefined" || !JSON) {
+    loadDepJs(REMOTE + "javascripts/easyXDM-2.4.9.102/json2.js");
+  }
+  
+  //We need easyXDM to reach out of our frame 
+  if(typeof easyXDM === "undefined" || !easyXDM){
+    loadDepJs(REMOTE + "javascripts/easyXDM-2.4.9.102/<%= easyXDM %>");
+  }
+  
+  scriptOnLoad();
+
+  /*
+   *
+   * Return an api, depends on if dependencys are loaded or not
+   *
+   */
+  return (function(){
+    if(all_deps === true){
+      return true_api;
+    }else{
+      for(prop in true_api){ (function(prop){
+        returned_api[prop] = function(){
+          async_log.push([prop, arguments]);
+        };
+      }(prop)); }
+      return returned_api;
+    }
+  }());
+
 }();
+
+blinkmarks.buildBar();
